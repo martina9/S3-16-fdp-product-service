@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/S3-16-fdp-delivery-system.iml" filepath="$PROJECT_DIR$/.idea/modules/S3-16-fdp-delivery-system.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/S3-16-fdp-delivery-system_main.iml" filepath="$PROJECT_DIR$/.idea/modules/S3-16-fdp-delivery-system_main.iml" group="S3-16-fdp-delivery-system" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/S3-16-fdp-delivery-system_test.iml" filepath="$PROJECT_DIR$/.idea/modules/S3-16-fdp-delivery-system_test.iml" group="S3-16-fdp-delivery-system" />
+    </modules>
+  </component>
+</project>
