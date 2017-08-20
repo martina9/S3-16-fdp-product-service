@@ -1,4 +1,4 @@
-package com.fastdeliveryservice.modelTo;
+package com.fastdeliveryservice.modelDto;
 
 import com.fastdeliveryservice.model.User;
 

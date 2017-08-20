@@ -1,4 +1,4 @@
-package com.fastdeliveryservice.modelTo;
+package com.fastdeliveryservice.modelDto;
 
 import javax.persistence.OneToMany;
 import java.util.ArrayList;

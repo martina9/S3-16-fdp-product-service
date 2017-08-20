@@ -1,7 +1,4 @@
-package com.fastdeliveryservice.modelTo;
-
-import javax.persistence.*;
-import java.io.Serializable;
+package com.fastdeliveryservice.modelDto;
 
 /**
  * Created by Martina on 08/08/2017.

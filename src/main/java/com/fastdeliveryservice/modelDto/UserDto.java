@@ -1,9 +1,7 @@
-package com.fastdeliveryservice.modelTo;
+package com.fastdeliveryservice.modelDto;
 
 import com.fastdeliveryservice.model.Order;
 
-import javax.persistence.*;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 

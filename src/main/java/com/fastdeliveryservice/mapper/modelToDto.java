@@ -1,7 +1,7 @@
 package com.fastdeliveryservice.mapper;
 
 import com.fastdeliveryservice.model.*;
-import com.fastdeliveryservice.modelTo.UserDto;
+import com.fastdeliveryservice.modelDto.UserDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 
