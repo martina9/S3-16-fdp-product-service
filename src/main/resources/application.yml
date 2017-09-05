@@ -14,22 +14,13 @@ management:
     git:
       mode: full
 server:
-  port: 8095
-  context-path: /location
+  port: 8077
+  context-path: /delivery
 spring:
   application:
     name: Location Service
   rabbitmq:
     host: localhost
-  datasource:
-            password: 'fdproot'
-            tomcat:
-                max-active: 50
-                max-idle: 20
-                max-wait: 20000
-                min-idle: 15
-            url: jdbc:mysql://localhost:3306/fdp
-            username: root
   jpa:
       generate-ddl: true
       properties:
@@ -40,6 +31,15 @@ spring:
               globally_quoted_identifiers: true
               id:
                   new_generator_mappings: false
+  datasource:
+              password: 'fdproot'
+              tomcat:
+                  max-active: 50
+                  max-idle: 20
+                  max-wait: 20000
+                  min-idle: 15
+              url: jdbc:mysql://localhost:3306/fdp
+              username: root
   logging:
       level:
           org:
