@@ -1,4 +1,4 @@
-package com.fastdeliveryservice.modelDto;
+package com.fastdeliveryservice.domain;
 
 import com.fastdeliveryservice.model.BaseEntity;
 
@@ -6,7 +6,7 @@ import javax.persistence.ManyToOne;
 import java.io.Serializable;
 
 /**
- * Created by Martina on 08/08/2017.
+ * Created by Martina
  */
 
 public class OrderProductDto extends BaseEntity implements Serializable {
@@ -19,11 +19,11 @@ public class OrderProductDto extends BaseEntity implements Serializable {
         return quantity;
     }
 
-    public ProductRestourantDto getProductRestourant() {
+    public ProductRestaurantDto getProductRestourant() {
         return productRestourant;
     }
 
-    public void setProductRestourant(ProductRestourantDto productRestourant) {
+    public void setProductRestourant(ProductRestaurantDto productRestourant) {
         this.productRestourant = productRestourant;
     }
 
@@ -32,6 +32,6 @@ public class OrderProductDto extends BaseEntity implements Serializable {
     }
 
     @ManyToOne
-    private ProductRestourantDto productRestourant;
+    private ProductRestaurantDto productRestourant;
 }
 

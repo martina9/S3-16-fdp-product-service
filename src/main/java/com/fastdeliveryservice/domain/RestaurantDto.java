@@ -1,14 +1,13 @@
-package com.fastdeliveryservice.modelDto;
+package com.fastdeliveryservice.domain;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
 /**
- * Created by Martina on 08/08/2017.
+ * Created by Martina Gabellini
  */
 
 public class RestaurantDto {
-    private static final long serialVersionUID = 1L;
 
     public RestaurantDto() {
         productRestourants = new ArrayList<>();
@@ -16,23 +15,38 @@ public class RestaurantDto {
 
     private AddressRestaurantDto addressRestaurant;
 
-    private Collection<ProductRestourantDto> productRestourants;
+    private Collection<ProductRestaurantDto> productRestourants;
 
     public String getCode() {
         return code;
+    }
+
+    public int getId() {
+        return Id;
     }
 
     public void setCode(String code) {
         this.code = code;
     }
 
-    public void setId(String id) {
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setId(int id) {
         Id = id;
     }
 
     private String code ;
 
-    private String Id;
+    private int Id;
+
+    private String name;
+
     public AddressRestaurantDto getAddressRestaurant() {
         return addressRestaurant;
     }

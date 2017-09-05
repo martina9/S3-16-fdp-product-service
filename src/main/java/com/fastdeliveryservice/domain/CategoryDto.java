@@ -1,10 +1,10 @@
-package com.fastdeliveryservice.modelDto;
+package com.fastdeliveryservice.domain;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
 /**
- * Created by Martina on 09/08/2017.
+ * Created by Martina
  */
 public class CategoryDto {
 

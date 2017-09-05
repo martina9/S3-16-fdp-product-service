@@ -1,11 +1,11 @@
-package com.fastdeliveryservice.modelDto;
+package com.fastdeliveryservice.domain;
 
 import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.Collection;
 
 /**
- * Created by Martina on 08/08/2017.
+ * Created by Martina
  */
 
 public class IngredientDto {
@@ -34,7 +34,7 @@ public class IngredientDto {
     private CategoryDto category;
 
     @OneToMany
-    private Collection<ProductRestourantDto> productRestourants;
+    private Collection<ProductRestaurantDto> productRestourants;
 
 
     public CategoryDto getCategory() {

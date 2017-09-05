@@ -1,4 +1,4 @@
-package com.fastdeliveryservice.modelDto;
+package com.fastdeliveryservice.domain;
 
 import com.fastdeliveryservice.model.Order;
 
@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 /**
- * Created by Martina on 08/08/2017.
+ * Created by Martina
  */
 
 public class UserDto {
@@ -20,6 +20,15 @@ public class UserDto {
     private String firstName;
     private String lastName;
     private String taxCode;
+    private String email;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public int getId() {
         return Id;

@@ -1,11 +1,20 @@
-package com.fastdeliveryservice.modelDto;
+package com.fastdeliveryservice.domain;
 
 /**
- * Created by Martina on 08/08/2017.
+ * Created by Martina
  */
 
 public class AddressRestaurantDto  {
 
+    private String city;
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
 
     private int Id;
 

@@ -1,4 +1,4 @@
-package com.fastdeliveryservice.modelDto;
+package com.fastdeliveryservice.domain;
 
 import com.fastdeliveryservice.model.User;
 
@@ -8,23 +8,34 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 /**
- * Created by Martina on 08/08/2017.
+ * Created by Martina
  */
 
 public class OrderDto implements Serializable {
 
+    public Collection<ProductRestaurantDto> getProductRestaurants() {
+        return productRestaurants;
+    }
+
+    public void setProductRestaurants(Collection<ProductRestaurantDto> productRestaurants) {
+        this.productRestaurants = productRestaurants;
+    }
+
     public OrderDto()
     {
-        productRestourants = new ArrayList<>();
+        productRestaurants = new ArrayList<>();
+        user = new UserDto();
     }
 
     private int Id;
 
     private UserDto user;
 
-    private Collection<ProductRestourantDto> productRestourants;
+    private Collection<ProductRestaurantDto> productRestaurants;
 
     private double vatPrice ;
+
+    private String deliveryType;
 
     private double netPrice;
 
@@ -70,6 +81,8 @@ public class OrderDto implements Serializable {
         this.user = user;
     }
 
+    public void setDeliveryType(String deliveryType) { this.deliveryType = deliveryType; }
 
+    public String getDeliveryType() {return deliveryType;}
 }
 
