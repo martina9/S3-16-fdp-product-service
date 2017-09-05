@@ -1,7 +1,7 @@
 package com.fastdeliveryservice;
 
 /**
- * Created by Martina on 01/08/2017.
+ * Created by Martina
  */
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
