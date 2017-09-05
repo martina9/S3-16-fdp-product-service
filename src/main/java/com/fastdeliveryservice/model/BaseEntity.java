@@ -3,8 +3,9 @@ package com.fastdeliveryservice.model;
 import javax.persistence.*;
 
 /**
- * Created by Martina on 09/08/2017.
+ * Created by Martina Gabellini
  */
+
 @MappedSuperclass
 public class BaseEntity {
 

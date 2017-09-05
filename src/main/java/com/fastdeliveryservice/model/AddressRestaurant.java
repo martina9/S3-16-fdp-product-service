@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 /**
- * Created by Martina on 08/08/2017.
+ * Created by Martina
  */
 
 @Entity
@@ -13,7 +13,7 @@ public class AddressRestaurant implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int Id;
 
     @Column(name = "street", length = 255)
@@ -21,6 +21,11 @@ public class AddressRestaurant implements Serializable {
 
     @Column(name = "zipcode", length = 255)
     private String zipCode;
+
+
+
+    @Column(name = "city", length = 255)
+    private String city;
 
     public int getId() {
         return Id;
@@ -44,6 +49,14 @@ public class AddressRestaurant implements Serializable {
 
     public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 }
 

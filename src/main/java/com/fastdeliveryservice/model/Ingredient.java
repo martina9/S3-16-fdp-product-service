@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 /**
- * Created by Martina on 08/08/2017.
+ * Created by Martina
  */
 
 @Entity
@@ -18,7 +18,7 @@ public class Ingredient extends BaseEntity implements Serializable {
     private Category category;
 
     @OneToMany
-    private Collection<ProductRestourant> productRestourants=new ArrayList<>();
+    private Collection<ProductRestaurant> productRestaurants =new ArrayList<>();
 
     public Category getCategory() {
         return category;

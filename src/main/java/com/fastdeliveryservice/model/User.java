@@ -6,12 +6,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 /**
- * Created by Martina on 08/08/2017.
+ * Created by Martina
  */
 
 @Entity
 @Table(name="Users",uniqueConstraints = {
-        @UniqueConstraint(columnNames = "taxCode")
+        @UniqueConstraint(columnNames = {"taxCode","email"})
 })
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -19,6 +19,9 @@ public class User implements Serializable {
     @javax.persistence.Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private int Id;
+
+    @Column(name="email",length = 255,nullable = false)
+    private String email;
 
     @Column(name="firstName",length = 255,nullable = false)
     private String firstName;

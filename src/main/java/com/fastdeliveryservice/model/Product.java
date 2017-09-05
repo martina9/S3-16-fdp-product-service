@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 /**
- * Created by Martina on 08/08/2017.
+ * Created by Martina
  */
 
 import javax.persistence.Entity;
@@ -27,6 +27,6 @@ import javax.persistence.Table;
         }
 
         @OneToMany
-        private Collection<ProductRestourant> productRestourants=new ArrayList<>();
+        private Collection<ProductRestaurant> productRestaurants =new ArrayList<>();
     }
 

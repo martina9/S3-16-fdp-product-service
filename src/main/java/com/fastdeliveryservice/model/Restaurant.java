@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 /**
- * Created by Martina on 08/08/2017.
+ * Created by Martina Gabellini
  */
 
 @Entity
@@ -19,7 +19,7 @@ public class Restaurant extends BaseEntity implements Serializable {
     private AddressRestaurant addressRestaurant;
 
     @OneToMany
-    private Collection<ProductRestourant> productRestourants=new ArrayList<>();
+    private Collection<ProductRestaurant> productRestaurants =new ArrayList<>();
 
     public AddressRestaurant getAddressRestaurant() {
         return addressRestaurant;

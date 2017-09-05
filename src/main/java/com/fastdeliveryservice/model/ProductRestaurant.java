@@ -4,13 +4,13 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 /**
- * Created by Martina on 08/08/2017.
+ * Created by Martina Gabellini
  */
 
 @Entity
-@Table(name="ProductRestourants")
+@Table(name="ProductRestaurants")
 
-public class ProductRestourant extends BaseEntity implements Serializable {
+public class ProductRestaurant extends BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private double price;

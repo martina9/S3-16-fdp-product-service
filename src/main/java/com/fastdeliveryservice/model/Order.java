@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 /**
- * Created by Martina on 08/08/2017.
+ * Created by Martina
  */
 
 @Entity
@@ -24,7 +24,7 @@ public class Order implements Serializable {
     private User user;
 
     @OneToMany
-    private Collection<ProductRestourant> productRestourants = new ArrayList<>();
+    private Collection<ProductRestaurant> productRestaurants = new ArrayList<>();
 
     private double vatPrice ;
 
