@@ -55,11 +55,7 @@ public class ProductController {
         productDto.setIngredients(product.getIngredients());
         productDto.setPrice(product.getPrice());
 
-        boolean flag = productService.add(productDto);
-
-        if (flag == false) {
-            return new ResponseEntity<Void>(HttpStatus.CONFLICT);
-        }
+        int flag = productService.add(productDto);
 
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(builder.path("/product/{id}").buildAndExpand(productDto.getId()).toUri());

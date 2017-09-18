@@ -1,7 +1,6 @@
 package com.fastdeliveryservice.controller;
 
 import com.fastdeliveryservice.domain.RestaurantDto;
-import com.fastdeliveryservice.service.RestaurantSeedDataService;
 import com.fastdeliveryservice.service.RestaurantService;
 import com.fastdeliveryservice.viewModel.SellerViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,14 +22,12 @@ import java.util.List;
 @RestController
 public class RestaurantController {
 
-    private RestaurantSeedDataService restaurantSeedDataService;
 
     private RestaurantService restaurantService;
 
     //Injection parameters
     @Autowired
-    public RestaurantController(RestaurantSeedDataService restaurantSeedDataService, RestaurantService restaurantService) {
-            this.restaurantSeedDataService = restaurantSeedDataService;
+    public RestaurantController( RestaurantService restaurantService) {
             this.restaurantService = restaurantService;
     }
 

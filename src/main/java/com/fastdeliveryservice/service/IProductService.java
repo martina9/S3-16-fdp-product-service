@@ -4,15 +4,16 @@ package com.fastdeliveryservice.service;
  * Created by Martina
  */
 
+import com.fastdeliveryservice.domain.ProductDto;
 import com.fastdeliveryservice.model.Product;
 
 import java.util.List;
 
 public interface IProductService {
 
-    List<Product> getAllProductsByRestaurant(int idRestaurant);
-    Product getProductById(int productId);
-    boolean addProduct(Product product);
-    void updateProduct(Product product);
-    void deleteProduct(int productId);
+    List<ProductDto> getAllProductsByRestaurant(int idRestaurant);
+    ProductDto getProductById(int productId);
+    int add(ProductDto product);
+    int update(ProductDto product);
+    int delete(int productId);
 }

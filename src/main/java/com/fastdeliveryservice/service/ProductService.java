@@ -2,9 +2,6 @@ package com.fastdeliveryservice.service;
 
 import com.fastdeliveryservice.dao.ProductDAO;
 import com.fastdeliveryservice.domain.ProductDto;
-import com.fastdeliveryservice.model.Product;
-import com.fastdeliveryservice.model.Product;
-import com.fastdeliveryservice.domain.ProductDto;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -16,8 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Martina
@@ -52,17 +52,39 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public Product getProductById(int productId) {
-        Product obj = productDAO.getId(productId);
-        return obj;
+    public List<ProductDto> getAllProductsByRestaurant(int idRestaurant) {
+        logger.debug("Sending RPC request message for getting order...");
+
+        String order = (String) rabbitTemplate.convertSendAndReceive(directExchange.getName(), "FDP.DeliveryMessageService:Request.ProductList", idRestaurant);
+
+        TypeReference<Map<String, List<ProductDto>>> mapType = new TypeReference<Map<String, List<ProductDto>>>() {
+        };
+
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        Map<String, List<ProductDto>> restaurantsMap = new HashMap<>();
+
+        try {
+            restaurantsMap = objectMapper.readValue(order, mapType);
+        } catch (IOException e) {
+            logger.info(String.valueOf(e));
+        }
+
+        List<ProductDto> productDto = restaurantsMap.get("product");
+
+        if (logger.isDebugEnabled()) {
+            logger.debug("Product received...", productDto.size());
+        }
+
+        return productDto;
+    }
+
     /**
      * Produces message request containing product id
      *
      * @param id
      * @return Product by Id
      */
-
-    @SuppressWarnings("unchecked")
     public ProductDto getProductById(int id) {
         logger.debug("Sending RPC request message for getting order...");
 
@@ -89,33 +111,9 @@ public class ProductService implements IProductService {
 
         return productDto;
     }
-
-    @Override
-    public List<Product> getAllProductsByRestaurant (int idRestaurant) {
-        return productDAO.getAllProducts();
-    }
-
-    @Override
-    public synchronized boolean addProduct(Product Product){
-        if (productDAO.ProductExists(Product.getCode())) {
-            return false;
-        } else {
-            productDAO.addProduct(Product);
-            return true;
-        }
-    }
-
-    @Override
-    public void updateProduct(Product Product) {
-        productDAO.updateProduct(Product);
-    }
-
-    @Override
-    public void deleteProduct(int ProductId) {
-        productDAO.deleteProduct(ProductId);
-    public synchronized boolean add(ProductDto productDto){
+    public synchronized int add(ProductDto productDto){
         logger.debug("Sending RPC request message for getting order...");
-        boolean resultProductId = (boolean) rabbitTemplate.convertSendAndReceive(directExchange.getName(), "FDP.DeliveryMessageService:Request.AddProduct", productDto);
+        int resultProductId = (int) rabbitTemplate.convertSendAndReceive(directExchange.getName(), "FDP.DeliveryMessageService:Request.AddProduct", productDto);
 
         if (logger.isDebugEnabled()) {
             logger.debug("Product received...", resultProductId);
@@ -125,10 +123,10 @@ public class ProductService implements IProductService {
     }
 
     @SuppressWarnings("unchecked")
-    public boolean update(ProductDto product) {
+    public int update(ProductDto product) {
         logger.debug("Sending RPC request message for getting product...");
 
-        boolean resultProductId = (boolean) rabbitTemplate.convertSendAndReceive(directExchange.getName(), "FDP.DeliveryMessageService:Request.UpdateProduct", product);
+        int resultProductId = (int) rabbitTemplate.convertSendAndReceive(directExchange.getName(), "FDP.DeliveryMessageService:Request.UpdateProduct", product);
 
         if (logger.isDebugEnabled()) {
             logger.debug("Product received...", resultProductId);
@@ -138,28 +136,14 @@ public class ProductService implements IProductService {
     }
 
     @SuppressWarnings("unchecked")
-    public boolean delete(ProductDto productDto){
-        String pr = (String) rabbitTemplate.convertSendAndReceive(directExchange.getName(), "FDP.DeliveryMessageService:Request.DeleteProduct", productDto);
+    public int delete(int productId){
+        int id = (int) rabbitTemplate.convertSendAndReceive(directExchange.getName(), "FDP.DeliveryMessageService:Request.DeleteProduct", productId);
 
         if (logger.isDebugEnabled()) {
-            logger.debug("Request Delete Product received...", pr);
+            logger.debug("Request Delete Product received...", productId);
         }
-
-        return true;
+        return id;
     }
 
-    /**
-     * Produces query message containing election
-     * Consumes location list based on election query
-     *
-     * @param id
-     * @return List of locations
-     */
 
-    @SuppressWarnings("unchecked")
-    public List<ProductDto> getProductMessageRpc(int id) {
-        logger.debug("Sending RPC request message for list of locations...");
-
-        return new ArrayList<ProductDto>();
-    }
 }

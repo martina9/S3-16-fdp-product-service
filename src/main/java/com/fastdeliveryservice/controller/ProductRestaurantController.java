@@ -1,8 +1,7 @@
 package com.fastdeliveryservice.controller;
 
 import com.fastdeliveryservice.domain.ProductRestaurantDto;
-import com.fastdeliveryservice.service.ProductRestaurantService;
-import com.fastdeliveryservice.service.RestaurantSeedDataService;
+import com.fastdeliveryservice.service.ProductRestaurantService; 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,14 +23,12 @@ import java.util.Map;
 @RestController
 public class ProductRestaurantController {
 
-    private RestaurantSeedDataService restaurantSeedDataService;
 
     private ProductRestaurantService productRestaurantService;
 
     //Injection parameters
     @Autowired
-    public ProductRestaurantController(RestaurantSeedDataService restaurantSeedDataService, ProductRestaurantService productRestaurantService) {
-            this.restaurantSeedDataService = restaurantSeedDataService;
+    public ProductRestaurantController( ProductRestaurantService productRestaurantService) {
             this.productRestaurantService = productRestaurantService;
     }
 
