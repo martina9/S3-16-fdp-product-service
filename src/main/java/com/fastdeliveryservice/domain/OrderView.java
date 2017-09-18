@@ -3,7 +3,7 @@ package com.fastdeliveryservice.domain;
 import java.util.List;
 
 /**
- * Created by Utente on 29/08/2017.
+ * Created by Martina
  */
 public class OrderView {
 
