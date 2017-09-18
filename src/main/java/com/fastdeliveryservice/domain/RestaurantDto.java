@@ -1,5 +1,6 @@
 package com.fastdeliveryservice.domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -7,27 +8,54 @@ import java.util.Collection;
  * Created by Martina Gabellini
  */
 
-public class RestaurantDto {
+public class RestaurantDto implements Serializable {
+
+    public String email;
+    public String phoneNumber;
+    private Collection<AddressRestaurantDto> addressRestaurants;
+    private Collection<ProductRestaurantDto> productRestourants;
+    private String code;
+    private int Id;
+    private String name;
 
     public RestaurantDto() {
         productRestourants = new ArrayList<>();
+        addressRestaurants = new ArrayList<>();
     }
-
-    private AddressRestaurantDto addressRestaurant;
-
-    private Collection<ProductRestaurantDto> productRestourants;
 
     public String getCode() {
         return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public Collection<AddressRestaurantDto> getAddressRestaurants() {
+        return addressRestaurants;
+    }
+
+    public void setAddressRestaurants(Collection<AddressRestaurantDto> addressRestaurants) {
+        this.addressRestaurants = addressRestaurants;
+    }
+
+    public Collection<ProductRestaurantDto> getProductRestourants() {
+        return productRestourants;
+    }
+
+    public void setProductRestourants(Collection<ProductRestaurantDto> productRestourants) {
+        this.productRestourants = productRestourants;
     }
 
     public int getId() {
         return Id;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setId(int id) {
+        Id = id;
     }
+
+
 
     public String getName() {
         return name;
@@ -37,22 +65,5 @@ public class RestaurantDto {
         this.name = name;
     }
 
-    public void setId(int id) {
-        Id = id;
-    }
-
-    private String code ;
-
-    private int Id;
-
-    private String name;
-
-    public AddressRestaurantDto getAddressRestaurant() {
-        return addressRestaurant;
-    }
-
-    public void setAddressRestaurant(AddressRestaurantDto addressRestaurant) {
-        this.addressRestaurant = addressRestaurant;
-    }
 }
 

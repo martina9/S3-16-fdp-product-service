@@ -11,12 +11,12 @@ import java.util.Collection;
 
 public class UserDto {
 
-    public UserDto()
-    {
+    public UserDto() {
         orders=new ArrayList<>();
     }
 
     private int Id;
+
     private String firstName;
     private String lastName;
     private String taxCode;

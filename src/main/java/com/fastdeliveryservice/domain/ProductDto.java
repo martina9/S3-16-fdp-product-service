@@ -1,5 +1,6 @@
 package com.fastdeliveryservice.domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -7,25 +8,11 @@ import java.util.Collection;
  * Created by Martina Gabellini
  */
 
-public class ProductDto
+public class ProductDto implements Serializable
 {
-    public ProductDto() {
-        productRestourants = new ArrayList<>();
-    }
-
     private CategoryDto category;
-    private Collection<ProductRestaurantDto> productRestourants;
     private String code ;
     private int Id;
-
-
-    public Collection<ProductRestaurantDto> getProductRestourants() {
-        return productRestourants;
-    }
-
-    public void setProductRestourants(Collection<ProductRestaurantDto> productRestourants) {
-        this.productRestourants = productRestourants;
-    }
 
     public int getId() {
         return Id;

@@ -1,11 +1,9 @@
 package com.fastdeliveryservice.domain;
 
-import com.fastdeliveryservice.model.User;
-
 import java.io.Serializable;
 import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by Martina
@@ -13,25 +11,31 @@ import java.util.Collection;
 
 public class OrderDto implements Serializable {
 
-    public Collection<ProductRestaurantDto> getProductRestaurants() {
+    public List<ProductRestaurantDto> getProductRestaurants() {
         return productRestaurants;
     }
 
-    public void setProductRestaurants(Collection<ProductRestaurantDto> productRestaurants) {
+    public void setProductRestaurants(List<ProductRestaurantDto> productRestaurants) {
         this.productRestaurants = productRestaurants;
     }
 
-    public OrderDto()
-    {
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public OrderDto() {
         productRestaurants = new ArrayList<>();
-        user = new UserDto();
     }
 
     private int Id;
 
-    private UserDto user;
+    private int userId;
 
-    private Collection<ProductRestaurantDto> productRestaurants;
+    private List<ProductRestaurantDto> productRestaurants;
 
     private double vatPrice ;
 
@@ -71,14 +75,6 @@ public class OrderDto implements Serializable {
 
     public void setConfirmationDate(Date confirmationDate) {
         ConfirmationDate = confirmationDate;
-    }
-
-    public UserDto getUser() {
-        return user;
-    }
-
-    public void setUser(User userTo) {
-        this.user = user;
     }
 
     public void setDeliveryType(String deliveryType) { this.deliveryType = deliveryType; }
