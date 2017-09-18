@@ -1,6 +1,5 @@
 package com.fastdeliveryservice.service;
 
-import com.fastdeliveryservice.mapper.ModelToDto;
 import com.fastdeliveryservice.domain.RestaurantDto;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -116,8 +115,7 @@ public class RestaurantService {
 
         Map<String, List<RestaurantDto>> restaurantsMap = new HashMap<>();
 
-        try
-        {
+        try {
             restaurantsMap = objectMapper.readValue(restaurants, mapType);
         }
         catch (IOException e) {

@@ -2,11 +2,11 @@ package com.fastdeliveryservice.service;
 
 import com.fastdeliveryservice.dao.ProductDAO;
 import com.fastdeliveryservice.dao.ProductRestaurantDAO;
-
 import com.fastdeliveryservice.dao.RestaurantDAO;
 import com.fastdeliveryservice.domain.ProductRestaurantDto;
-
-import com.fastdeliveryservice.model.*;
+import com.fastdeliveryservice.model.Product;
+import com.fastdeliveryservice.model.ProductRestaurant;
+import com.fastdeliveryservice.model.Restaurant;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
@@ -88,7 +88,6 @@ public class ProductRestaurantMessageService {
 
         //Add Product Restaurant
         productRestaurantDAO.addProductRestaurant(productRestaurant);
-
         return true;
     }
 
@@ -102,6 +101,7 @@ public class ProductRestaurantMessageService {
         ProductRestaurant productRestaurant = productRestaurantDAO.getProductRestaurant(productRestaurantDtO.getId());
         productRestaurant.setPrice(productRestaurantDtO.getPrice());
         productRestaurant.setName(productRestaurantDtO.getName());
+
         //Update Product Restaurant
         productRestaurantDAO.updateProductRestaurant(productRestaurant);
         return true;

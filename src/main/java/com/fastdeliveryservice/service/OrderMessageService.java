@@ -2,12 +2,11 @@ package com.fastdeliveryservice.service;
 
 import com.fastdeliveryservice.dao.OrderDAO;
 import com.fastdeliveryservice.dao.ProductDAO;
-import com.fastdeliveryservice.dao.RestaurantDAO;
+import com.fastdeliveryservice.dao.UserDAO;
 import com.fastdeliveryservice.domain.OrderDto;
-import com.fastdeliveryservice.domain.ProductRestaurantDto;
 import com.fastdeliveryservice.model.Order;
+import com.fastdeliveryservice.model.OrderProduct;
 import com.fastdeliveryservice.model.ProductRestaurant;
-import com.fastdeliveryservice.model.Restaurant;
 import com.fastdeliveryservice.model.User;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -20,12 +19,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
-import java.sql.Date;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -46,6 +42,8 @@ public class OrderMessageService {
 
     @Autowired
     private ProductDAO productDAO;
+    @Autowired
+    private UserDAO userDAO;
 
     @Autowired
     public OrderMessageService(Environment environment, RabbitTemplate rabbitTemplate, DirectExchange directExchange) {
@@ -61,11 +59,19 @@ public class OrderMessageService {
         List<ProductRestaurant> restaurants = productDAO.getProductRestaurantList(ids);
         Order order = new Order();
         order.setConfirmationDate(new java.sql.Date(System.currentTimeMillis()));
-        User user = productDAO.getUser(orderDto.getUser().getEmail());
+        int totalPrice = 0;
+        for (ProductRestaurant products : restaurants ) {
+            totalPrice+=products.getPrice();
+            OrderProduct orderProduct = new OrderProduct();
+            orderProduct.setQuantity(1);
+            orderProduct.setProductRestaurant(products);
+            order.getOrderProducts().add(orderProduct);
+        }
+        order.setDeliveryType(orderDto.getDeliveryType());
+        order.setNetPrice(totalPrice);
+        User user = userDAO.getUserById(orderDto.getUserId());
         order.setUser(user);
-        order.setVatPrice(100);
-        order.setNetPrice(200);
-
+        orderDAO.addOrder(order);
         return true;
     }
 
@@ -76,9 +82,8 @@ public class OrderMessageService {
         List<ProductRestaurant> restaurants = productDAO.getProductRestaurantList(ids);
         Order order = new Order();
         order.setConfirmationDate(new java.sql.Date(System.currentTimeMillis()));
-        User user = productDAO.getUser(orderDto.getUser().getEmail());
-        order.setUser(user);
-        order.setVatPrice(100);
+      //  User user = productDAO.getUser(orderDto.getUser().getEmail());
+      //  order.setUser(user);
         order.setNetPrice(200);
 
         return true;

@@ -2,7 +2,6 @@ package com.fastdeliveryservice.service;
 
 import com.fastdeliveryservice.dao.RestaurantDAO;
 import com.fastdeliveryservice.model.Restaurant;
-import com.fastdeliveryservice.utility.SerializerUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;

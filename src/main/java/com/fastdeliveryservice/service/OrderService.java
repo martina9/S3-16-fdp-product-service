@@ -1,10 +1,7 @@
 package com.fastdeliveryservice.service;
 
 import com.fastdeliveryservice.domain.OrderDto;
-import com.fastdeliveryservice.mapper.ModelToDto;
-import com.fastdeliveryservice.domain.RestaurantDto;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,14 +9,9 @@ import org.springframework.amqp.core.DirectExchange;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
-import org.springframework.hateoas.hal.Jackson2HalModule;
-import org.springframework.http.MediaType;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -56,13 +48,12 @@ public class OrderService {
     @SuppressWarnings("unchecked")
     public List<OrderDto> getOrderByUserId(int userId) {
 
-        //ShouldbeDone Sanity Check
+        //Should be Done Sanity Check
         logger.debug("Sending RPC request message for list of orders...");
 
         String orders = (String) rabbitTemplate.convertSendAndReceive(directExchange.getName(), "FDP.DeliveryMessageService:Request.OrderList", userId);
 
-        TypeReference<Map<String, List<OrderDto>>> mapType = new TypeReference<Map<String, List<OrderDto>>>() {
-        };
+        TypeReference<Map<String, List<OrderDto>>> mapType = new TypeReference<Map<String, List<OrderDto>>>() {};
 
         ObjectMapper objectMapper = new ObjectMapper();
 
@@ -135,8 +126,8 @@ public class OrderService {
 
     @SuppressWarnings("unchecked")
     public boolean add(OrderDto order) {
-        logger.debug("Sending RPC request message for getting order...");
 
+        logger.debug("Sending RPC request message for getting order...");
         boolean resultOrderId = (boolean) rabbitTemplate.convertSendAndReceive(directExchange.getName(), "FDP.DeliveryMessageService:Request.AddOrder", order);
 
         if (logger.isDebugEnabled()) {
