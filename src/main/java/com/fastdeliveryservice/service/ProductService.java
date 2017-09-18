@@ -3,6 +3,11 @@ package com.fastdeliveryservice.service;
 import com.fastdeliveryservice.dao.ProductDAO;
 import com.fastdeliveryservice.domain.ProductDto;
 import com.fastdeliveryservice.model.Product;
+import com.fastdeliveryservice.model.Product;
+import com.fastdeliveryservice.domain.ProductDto;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.DirectExchange;
@@ -16,6 +21,10 @@ import java.util.List;
 
 /**
  * Created by Martina
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
  */
 
 @Service
@@ -46,6 +55,39 @@ public class ProductService implements IProductService {
     public Product getProductById(int productId) {
         Product obj = productDAO.getId(productId);
         return obj;
+    /**
+     * Produces message request containing product id
+     *
+     * @param id
+     * @return Product by Id
+     */
+
+    @SuppressWarnings("unchecked")
+    public ProductDto getProductById(int id) {
+        logger.debug("Sending RPC request message for getting order...");
+
+        String order = (String) rabbitTemplate.convertSendAndReceive(directExchange.getName(), "FDP.DeliveryMessageService:Request.Product", id);
+
+        TypeReference<Map<String, ProductDto>> mapType = new TypeReference<Map<String, ProductDto>>() {
+        };
+
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        Map<String, ProductDto> restaurantsMap = new HashMap<>();
+
+        try {
+            restaurantsMap = objectMapper.readValue(order, mapType);
+        } catch (IOException e) {
+            logger.info(String.valueOf(e));
+        }
+
+        ProductDto productDto = restaurantsMap.get("product");
+
+        if (logger.isDebugEnabled()) {
+            logger.debug("Product received...", productDto.getId());
+        }
+
+        return productDto;
     }
 
     @Override
@@ -71,6 +113,39 @@ public class ProductService implements IProductService {
     @Override
     public void deleteProduct(int ProductId) {
         productDAO.deleteProduct(ProductId);
+    public synchronized boolean add(ProductDto productDto){
+        logger.debug("Sending RPC request message for getting order...");
+        boolean resultProductId = (boolean) rabbitTemplate.convertSendAndReceive(directExchange.getName(), "FDP.DeliveryMessageService:Request.AddProduct", productDto);
+
+        if (logger.isDebugEnabled()) {
+            logger.debug("Product received...", resultProductId);
+        }
+
+        return resultProductId;
+    }
+
+    @SuppressWarnings("unchecked")
+    public boolean update(ProductDto product) {
+        logger.debug("Sending RPC request message for getting product...");
+
+        boolean resultProductId = (boolean) rabbitTemplate.convertSendAndReceive(directExchange.getName(), "FDP.DeliveryMessageService:Request.UpdateProduct", product);
+
+        if (logger.isDebugEnabled()) {
+            logger.debug("Product received...", resultProductId);
+        }
+
+        return resultProductId;
+    }
+
+    @SuppressWarnings("unchecked")
+    public boolean delete(ProductDto productDto){
+        String pr = (String) rabbitTemplate.convertSendAndReceive(directExchange.getName(), "FDP.DeliveryMessageService:Request.DeleteProduct", productDto);
+
+        if (logger.isDebugEnabled()) {
+            logger.debug("Request Delete Product received...", pr);
+        }
+
+        return true;
     }
 
     /**
