@@ -3,6 +3,7 @@ package com.fastdeliveryservice.controller;
 import com.fastdeliveryservice.domain.RestaurantDto;
 import com.fastdeliveryservice.service.RestaurantSeedDataService;
 import com.fastdeliveryservice.service.RestaurantService;
+import com.fastdeliveryservice.viewModel.SellerViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,9 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Martina
@@ -35,9 +35,28 @@ public class RestaurantController {
     }
 
     @RequestMapping(value = "/restaurants/{city}", method = RequestMethod.GET)
-    public ResponseEntity<Map<String, List<RestaurantDto>>> getRestaurantByCityRpc(@PathVariable("city") String city) {
+    public ResponseEntity<List<SellerViewModel>> getRestaurantByCityRpc(@PathVariable("city") String city) {
+
+        //use service Manager for Message With Rabbit
         List<RestaurantDto> results = restaurantService.getRestaurantMessageRpc(city);
-        return new ResponseEntity<>(Collections.singletonMap("restaurants", results), HttpStatus.OK);
+
+        //Mapping Result into View Model
+        List<SellerViewModel> viewModels = new ArrayList<>();
+
+        for (RestaurantDto dto : results) {
+            SellerViewModel model = new SellerViewModel();
+            model.setIdSeller(dto.getId());
+            model.setCode(dto.getCode());
+            model.setName(dto.getName());
+            model.setEmail(dto.getAddressRestaurants().stream().findFirst().get().getEmail());
+            model.setPhoneNumber(dto.getAddressRestaurants().stream().findFirst().get().getPhoneNumber());
+            model.setCity(dto.getAddressRestaurants().stream().findFirst().get().getCity());
+            model.setStreet(dto.getAddressRestaurants().stream().findFirst().get().getStreet());
+            model.setZipCode(dto.getAddressRestaurants().stream().findFirst().get().getZipCode());
+            model.setCode(dto.getAddressRestaurants().stream().findFirst().get().getCode());
+            viewModels.add(model);
+        }
+        return new ResponseEntity<>(viewModels, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/restaurants/drop", method = RequestMethod.POST)
