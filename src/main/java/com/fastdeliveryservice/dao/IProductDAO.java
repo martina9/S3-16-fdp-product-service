@@ -1,17 +1,19 @@
 package com.fastdeliveryservice.dao;
 
 import com.fastdeliveryservice.model.Product;
+import com.fastdeliveryservice.model.ProductRestaurant;
+
 import java.util.List;
 
 /**
- * Created by Martina on 08/08/2017.
+ * Created by Martina
  */
 
 public interface IProductDAO {
 
     List<Product> getAllProducts();
 
-    Product getProductById(int productId);
+    Product getId(int productId);
 
     void addProduct(Product product);
 
@@ -20,4 +22,9 @@ public interface IProductDAO {
     void deleteProduct(int productId);
 
     boolean ProductExists(String code);
+
+    List<ProductRestaurant> getProductRestaurantList(List<Integer> ids);
+
+    ProductRestaurant  getProductRestaurant(int ids);
+
 }

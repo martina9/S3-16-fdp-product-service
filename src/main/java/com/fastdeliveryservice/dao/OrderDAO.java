@@ -3,7 +3,6 @@ package com.fastdeliveryservice.dao;
 import com.fastdeliveryservice.model.Order;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
@@ -25,14 +24,14 @@ public class OrderDAO implements IOrderDAO {
 
     @Override
     public List<Order> getOrdersByUserId(int userId) {
-        String hql = "Select o FROM Order as o join o.user as User WHERE User.Id = ?";
-        List<Order> order = ( List<Order> ) entityManager.createQuery(hql).setParameter(1, userId).getResultList();
+        String hql = "Select o FROM Order as o join o.user as User WHERE User.Id = :userId";
+        List<Order> order = ( List<Order> ) entityManager.createQuery(hql).setParameter("userId", userId).getResultList();
         return order;
     }
 
     @Override
     public List<Order> getAllOrders() {
-        String hql = "FROM Orders as atcl ORDER BY atcl.Id";
+        String hql = "FROM Order as atcl ORDER BY atcl.Id";
         return (List<Order>) entityManager.createQuery(hql).getResultList();
     }
 
@@ -45,7 +44,6 @@ public class OrderDAO implements IOrderDAO {
     public void updateOrder(Order order) {
         Order dbOrder = getOrderById(order.getId());
         dbOrder.setNetPrice(order.getNetPrice());
-        dbOrder.setVatPrice(order.getVatPrice());
         entityManager.flush();
     }
 

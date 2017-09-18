@@ -1,6 +1,5 @@
 package com.fastdeliveryservice.dao;
 
-import com.fastdeliveryservice.model.Product;
 import com.fastdeliveryservice.model.Restaurant;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,14 +26,14 @@ public class RestaurantDAO implements IRestaurantDAO {
 
     @Override
     public List<Restaurant> getRestaurantsByCity(String city) {
-        String hql = "Select r FROM Restaurant as r join r.addressRestaurant as adr WHERE adr.city = ?";
-        List<Restaurant> restaurant = ( List<Restaurant> ) entityManager.createQuery(hql).setParameter(1, city).getResultList();
+        String hql = "Select r FROM Restaurant as r join r.addressRestaurants as adr WHERE adr.city = :city";
+        List<Restaurant> restaurant = ( List<Restaurant> ) entityManager.createQuery(hql).setParameter("city", city).getResultList();
         return restaurant;
     }
 
     @Override
     public List<Restaurant> getAllRestaurants() {
-        String hql = "FROM Restaurants as atcl ORDER BY atcl.Id";
+        String hql = "Select r FROM Restaurant as r ORDER BY r.id";
         return (List<Restaurant>) entityManager.createQuery(hql).getResultList();
     }
 
@@ -46,7 +45,7 @@ public class RestaurantDAO implements IRestaurantDAO {
     @Override
     public void updateRestaurant(Restaurant restaurant) {
         Restaurant dbRestaurant = getRestaurantById(restaurant.getId());
-        dbRestaurant.setCode(restaurant.getCode());
+        //dbRestaurant.setCode(restaurant.getCode());
                 entityManager.flush();
     }
 
@@ -57,8 +56,8 @@ public class RestaurantDAO implements IRestaurantDAO {
 
     @Override
     public boolean RestaurantExists(String code) {
-        String hql = "FROM Products as p WHERE p.code = ?";
-        int count = entityManager.createQuery(hql).setParameter(1, code).getResultList().size();
+        String hql = "FROM Product as p WHERE p.code = :code";
+        int count = entityManager.createQuery(hql).setParameter("code", code).getResultList().size();
         return count > 0 ? true : false;
     }
 } 

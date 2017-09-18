@@ -1,6 +1,5 @@
 package com.fastdeliveryservice.dao;
 
-import com.fastdeliveryservice.model.Product;
 import com.fastdeliveryservice.model.ProductRestaurant;
 
 import java.util.List;

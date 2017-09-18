@@ -34,21 +34,21 @@ public class ProductRestaurantDAO implements IProductRestaurantDAO {
 
     @Override
     public void updateProductRestaurant(ProductRestaurant productRestaurant) {
-        ProductRestaurant dbProductRestaurant = getProductRestaurant(productRestaurant.getId());
-        dbProductRestaurant.setCode(productRestaurant.getCode());
+ /*       ProductRestaurant dbProductRestaurant = getProductRestaurant(productRestaurant.);
+
         dbProductRestaurant.setPrice(productRestaurant.getPrice());
         dbProductRestaurant.setProduct(productRestaurant.getProduct());
         dbProductRestaurant.setRestaurant(productRestaurant.getRestaurant());
         dbProductRestaurant.setName(productRestaurant.getName());
-        dbProductRestaurant.setId(productRestaurant.getId());
-
+        dbProductRestaurant.setIdSeller(productRestaurant.getIdSeller());
+*/
         entityManager.flush();
     }
 
     @Override
     public boolean ProductRestaurantExists(int idProduct, int idRestaurant) {
-        String hql = "FROM ProductRestaurants as pr join Products p join Restaurants r  WHERE p.Id = ? and r.Id = ?";
-        int count = entityManager.createQuery(hql).setParameter(1, idProduct).setParameter(2,idRestaurant).getResultList().size();
+        String hql = "FROM ProductRestaurant as pr join Product p join Restaurant r  WHERE p.id = :idProduct and r.id = :idRestaurant";
+        int count = entityManager.createQuery(hql).setParameter("idProduct", idProduct).setParameter("idRestaurant",idRestaurant).getResultList().size();
         return count > 0 ? true : false;
     }
 
@@ -61,28 +61,28 @@ public class ProductRestaurantDAO implements IProductRestaurantDAO {
 
     @Override
     public List<ProductRestaurant> getProductRestaurantListByIds(List<Integer> ids) {
-        String hql = "FROM ProductRestaurants as p WHERE p.id in (:ids)";
+        String hql = "FROM ProductRestaurant as p WHERE p.id in (:ids)";
         List<ProductRestaurant>  restaurants = entityManager.createQuery(hql).setParameter("ids", ids.toArray()).getResultList();
         return restaurants;
     }
 
     @Override
     public List<ProductRestaurant> getProductListByRestaurantId(int idRestaurant) {
-        String hql = "FROM ProductRestaurants as p join p.Restaurant as r join p.Product as pr WHERE r.id = ?";
-        List<ProductRestaurant>  restaurants = entityManager.createQuery(hql).setParameter(1, idRestaurant).getResultList();
+        String hql = "FROM ProductRestaurant as p join p.restaurant as r join p.product as pr WHERE r.id = :idRestaurant";
+        List<ProductRestaurant>  restaurants = entityManager.createQuery(hql).setParameter("idRestaurant", idRestaurant).getResultList();
         return restaurants;
     }
 
     @Override
     public ProductRestaurant getProductRestaurant(int id) {
-        String hql = "FROM ProductRestaurants as p WHERE p.id = ?";
-        ProductRestaurant  restaurant =(ProductRestaurant) entityManager.createQuery(hql).setParameter(1,id).getSingleResult();
+        String hql = "FROM ProductRestaurant as p WHERE p.id = :idProductRestaurant";
+        ProductRestaurant  restaurant =(ProductRestaurant) entityManager.createQuery(hql).setParameter("idProductRestaurant",id).getSingleResult();
         return restaurant;
     }
 
     public User getUser(String email) {
-        String hql = "FROM Users as u WHERE u.email = ?";
-        User  user =(User) entityManager.createQuery(hql).setParameter(1,email).getSingleResult();
+        String hql = "FROM User as u WHERE u.email = :email";
+        User  user =(User) entityManager.createQuery(hql).setParameter("email",email).getSingleResult();
         return user;
     }
 
