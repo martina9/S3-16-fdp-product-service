@@ -1,51 +1,60 @@
+spring:
+  application:
+    name: "Location Service"
+  datasource:
+    password: fdproot
+    tomcat:
+      max-active: 50
+      max-idle: 20
+      max-wait: 20000
+      min-idle: 15
+    url: "jdbc:mysql://localhost:3306/fastdeliverypizza"
+    username: root
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+      dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+      generate-ddl: true
+      globally_quoted_identifiers: true
+      idSeller:
+        new_generator_mappings: false
+
 endpoints:
   enabled: true
   sensitive: false
+
 info:
   java:
     source: "${java.version}"
+
 logging:
   level:
     root: INFO
+
 management:
   info:
     build:
       enabled: true
     git:
       mode: full
+
 server:
-  port: 8077
   context-path: /delivery
-spring:
-  application:
-    name: Location Service
+  port: 8080
+  address: localhost
+  logging:
+    level:
+      org:
+        hibernate:
+          SQL: DEBUG
+          type:
+            descriptor:
+              sql:
+                BasicBinder: TRACE
+
+# RabbitMQ properties
   rabbitmq:
     host: localhost
-  jpa:
-      generate-ddl: true
-      properties:
-          hibernate:
-              ddl-auto: update
-              generate-ddl: true
-              dialect: org.hibernate.dialect.MySQLDialect
-              globally_quoted_identifiers: true
-              id:
-                  new_generator_mappings: false
-  datasource:
-              password: 'fdproot'
-              tomcat:
-                  max-active: 50
-                  max-idle: 20
-                  max-wait: 20000
-                  min-idle: 15
-              url: jdbc:mysql://localhost:3306/fdp
-              username: root
-  logging:
-      level:
-          org:
-              hibernate:
-                  SQL: DEBUG
-                  type:
-                      descriptor:
-                          sql:
-                              BasicBinder: TRACE
+    listener:
+      default-requeue-rejected: false
