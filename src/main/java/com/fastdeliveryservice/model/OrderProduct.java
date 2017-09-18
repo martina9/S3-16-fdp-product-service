@@ -34,7 +34,6 @@ public class OrderProduct extends BaseEntity implements Serializable {
         this.quantity = quantity;
     }
 
-    @ManyToOne
     private ProductRestaurant productRestaurant;
 }
 

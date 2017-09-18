@@ -1,9 +1,8 @@
 package com.fastdeliveryservice.model;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
 
 /**
  * Created by Martina
@@ -14,6 +13,4 @@ import java.util.Collection;
 public class Category extends BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @OneToMany
-    private Collection<Product> products=new ArrayList<>();
 }

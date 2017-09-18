@@ -5,6 +5,8 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by Martina
@@ -16,36 +18,38 @@ public class Order implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @javax.persistence.Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    public Order()
+    {
+
+    }
+
+
     private int Id;
 
-    @ManyToOne
+
     private User user;
+    private Set<OrderProduct> orderProducts = new HashSet<>();
+    private double netPrice;
+    private Date ConfirmationDate ;
+    private String deliveryType;
 
     @OneToMany
-    private Collection<ProductRestaurant> productRestaurants = new ArrayList<>();
+    public Set<OrderProduct> getOrderProducts() {
+        return orderProducts;
+    }
 
-    private double vatPrice ;
+    public void setOrderProducts(Set<OrderProduct> orderProducts) {
+        this.orderProducts = orderProducts;
+    }
 
-    private double netPrice;
-
-    private Date ConfirmationDate ;
-
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     public int getId() {
         return Id;
     }
 
     public void setId(int id) {
         Id = id;
-    }
-
-    public double getVatPrice() {
-        return vatPrice;
-    }
-
-    public void setVatPrice(double vatPrice) {
-        this.vatPrice = vatPrice;
     }
 
     public double getNetPrice() {
@@ -64,6 +68,8 @@ public class Order implements Serializable {
         ConfirmationDate = confirmationDate;
     }
 
+    @ManyToOne
+    @JoinColumn(name = "user_id",nullable = false)
     public User getUser() {
         return user;
     }
@@ -72,6 +78,12 @@ public class Order implements Serializable {
         this.user = user;
     }
 
+    public String getDeliveryType() {
+        return deliveryType;
+    }
 
+    public void setDeliveryType(String deliveryType) {
+        this.deliveryType = deliveryType;
+    }
 }
 

@@ -9,16 +9,13 @@ import javax.persistence.*;
 @MappedSuperclass
 public class BaseEntity {
 
-    @javax.persistence.Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
     private int Id;
-
-    @Column(name="name",length = 255,unique = true, nullable = false)
     private String name;
-
-    @Column(name="code",length = 255,unique = true, nullable = false)
     private String code;
 
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    @Column(name = "Id")
     public int getId() {
         return Id;
     }
@@ -27,6 +24,7 @@ public class BaseEntity {
         Id = id;
     }
 
+    @Column(name="name",length = 255,unique = false, nullable = false)
     public String getName() {
         return name;
     }
@@ -35,6 +33,7 @@ public class BaseEntity {
         this.name = name;
     }
 
+    @Column(name="code",length = 255,unique = true, nullable = false)
     public String getCode() {
         return code;
     }
@@ -42,6 +41,4 @@ public class BaseEntity {
     public void setCode(String code) {
         this.code = code;
     }
-
-
 }
