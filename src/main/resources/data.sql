@@ -56,26 +56,26 @@ INSERT IGNORE INTO Address_Restaurants(phone_number,email,city, street, zip_code
 
 -- to do : inserire il nome dei ristoranti
 
-INSERT IGNORE INTO Product_Restaurant(price, product_id, restaurant_id) VALUES
-  (5.50, (SELECT id FROM Products WHERE code = 'MARGHERITA'), (SELECT id FROM Restaurants WHERE code = 'BOSCHESE')),
-  (5.50, (SELECT id FROM Products WHERE code = 'BUFALA'), (SELECT id FROM Restaurants WHERE code = 'BOSCHESE')),
-  (6.50, (SELECT id FROM Products WHERE code = 'CRUDBUFALA'), (SELECT id FROM Restaurants WHERE code = 'BOSCHESE')),
-  (5.00, (SELECT id FROM Products WHERE code = 'SALSFRIARIELLI'), (SELECT id FROM Restaurants WHERE code = 'FIOPIZZA')),
-  (7.00, (SELECT id FROM Products WHERE code = 'CRUDBUFALA'), (SELECT id FROM Restaurants WHERE code = 'FIOPIZZA')),
-  (8.00, (SELECT id FROM Products WHERE code = 'SALSFRIARIELLI'), (SELECT id FROM Restaurants WHERE code = 'FIOPIZZA')),
-  (8.50,  (SELECT id FROM Products WHERE code = 'TIRAMISU'), (SELECT id FROM Restaurants WHERE code = 'CAPINERA')),
-  (4.50, (SELECT id FROM Products WHERE code = 'TIRAMISU'), (SELECT id FROM Restaurants WHERE code = 'CAPINERA')),
-  (6.50, (SELECT id FROM Products WHERE code = 'MARGHERITA'), (SELECT id FROM Restaurants WHERE code = 'CAPINERA')),
-  (7.50, (SELECT id FROM Products WHERE code = 'BUFALA'), (SELECT id FROM Restaurants WHERE code = 'CAPINERA')),
-  (3.50, (SELECT id FROM Products WHERE code = 'TIRAMISU'), (SELECT id FROM Restaurants WHERE code = 'LANUOVAFAZENDA')),
-  (2.50, (SELECT id FROM Products WHERE code = 'CHEESECAKE'), (SELECT id FROM Restaurants WHERE code = 'LANUOVAFAZENDA')),
-  (6.50, (SELECT id FROM Products WHERE code = 'MARGHERITA'), (SELECT id FROM Restaurants WHERE code = 'LANUOVAFAZENDA')),
-  (7.50, (SELECT id FROM Products WHERE code = 'BUFALA'), (SELECT id FROM Restaurants WHERE code = 'LANUOVAFAZENDA')),
-  (8.50, (SELECT id FROM Products WHERE code = 'CRUDBUFALA'), (SELECT id FROM Restaurants WHERE code = 'LANUOVAFAZENDA')),
-  (2.50, (SELECT id FROM Products WHERE code = 'CHEESECAKE'), (SELECT id FROM Restaurants WHERE code = 'OASI')),
-  (1.50, (SELECT id FROM Products WHERE code = 'TIRAMISU'), (SELECT id FROM Restaurants WHERE code = 'OASI')),
-  (6.50, (SELECT id FROM Products WHERE code = 'BUFALA'), (SELECT id FROM Restaurants WHERE code = 'OASI')),
-  (7.50, (SELECT id FROM Products WHERE code = 'SALSFRIARIELLI'), (SELECT id FROM Restaurants WHERE code = 'OASI'));
+INSERT IGNORE INTO Product_Restaurant(name,price, product_id, restaurant_id) VALUES
+  ('Margherita',5.50, (SELECT id FROM Products WHERE code = 'MARGHERITA'), (SELECT id FROM Restaurants WHERE code = 'BOSCHESE')),
+  ('Bufalina',5.50, (SELECT id FROM Products WHERE code = 'BUFALA'), (SELECT id FROM Restaurants WHERE code = 'BOSCHESE')),
+  ('Crudo e bufala',6.50, (SELECT id FROM Products WHERE code = 'CRUDBUFALA'), (SELECT id FROM Restaurants WHERE code = 'BOSCHESE')),
+  ('salsiccia e friarielli',5.00, (SELECT id FROM Products WHERE code = 'SALSFRIARIELLI'), (SELECT id FROM Restaurants WHERE code = 'FIOPIZZA')),
+  ('Crudo e bufala',7.00, (SELECT id FROM Products WHERE code = 'CRUDBUFALA'), (SELECT id FROM Restaurants WHERE code = 'FIOPIZZA')),
+  ('salsiccia e friarielli',8.00, (SELECT id FROM Products WHERE code = 'SALSFRIARIELLI'), (SELECT id FROM Restaurants WHERE code = 'FIOPIZZA')),
+  ('tiramisu',8.50,  (SELECT id FROM Products WHERE code = 'TIRAMISU'), (SELECT id FROM Restaurants WHERE code = 'CAPINERA')),
+  ('tiramisu',4.50, (SELECT id FROM Products WHERE code = 'TIRAMISU'), (SELECT id FROM Restaurants WHERE code = 'CAPINERA')),
+  ('Margherita',6.50, (SELECT id FROM Products WHERE code = 'MARGHERITA'), (SELECT id FROM Restaurants WHERE code = 'CAPINERA')),
+  ('bufala',7.50, (SELECT id FROM Products WHERE code = 'BUFALA'), (SELECT id FROM Restaurants WHERE code = 'CAPINERA')),
+  ('tiramisu',3.50, (SELECT id FROM Products WHERE code = 'TIRAMISU'), (SELECT id FROM Restaurants WHERE code = 'LANUOVAFAZENDA')),
+  ('cheesecake',2.50, (SELECT id FROM Products WHERE code = 'CHEESECAKE'), (SELECT id FROM Restaurants WHERE code = 'LANUOVAFAZENDA')),
+  ('Margherita',6.50, (SELECT id FROM Products WHERE code = 'MARGHERITA'), (SELECT id FROM Restaurants WHERE code = 'LANUOVAFAZENDA')),
+  ('bufala',7.50, (SELECT id FROM Products WHERE code = 'BUFALA'), (SELECT id FROM Restaurants WHERE code = 'LANUOVAFAZENDA')),
+  ('bufala',8.50, (SELECT id FROM Products WHERE code = 'CRUDBUFALA'), (SELECT id FROM Restaurants WHERE code = 'LANUOVAFAZENDA')),
+  ('cheesecake',2.50, (SELECT id FROM Products WHERE code = 'CHEESECAKE'), (SELECT id FROM Restaurants WHERE code = 'OASI')),
+  ('tiramisu',1.50, (SELECT id FROM Products WHERE code = 'TIRAMISU'), (SELECT id FROM Restaurants WHERE code = 'OASI')),
+  ('bufala',6.50, (SELECT id FROM Products WHERE code = 'BUFALA'), (SELECT id FROM Restaurants WHERE code = 'OASI')),
+  ('salsiccia e friarielli',7.50, (SELECT id FROM Products WHERE code = 'SALSFRIARIELLI'), (SELECT id FROM Restaurants WHERE code = 'OASI'));
 
 INSERT IGNORE INTO Users(email, first_name, last_name, tax_code) VALUES
   ('martina.g9@hotmail.it', 'Martina', 'Gabellini', 'GBLMTN92D43G479N'),
