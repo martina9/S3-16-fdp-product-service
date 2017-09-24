@@ -7,8 +7,7 @@ import org.springframework.test.context.junit4.SpringRunner;
  * @author  mGabellini
  */
 
-    @RunWith(SpringRunner.class)
-    @SpringBootTest({"myCustomArgs.customArg1=testValue"})
+    @RunWith(SpringRunner.class) 
     public class TestClass {
 
         @Test
