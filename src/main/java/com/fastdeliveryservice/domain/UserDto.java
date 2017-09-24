@@ -1,27 +1,34 @@
-package com.fastdeliveryservice.modelTo;
+package com.fastdeliveryservice.domain;
 
 import com.fastdeliveryservice.model.Order;
 
-import javax.persistence.*;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 
 /**
- * Created by Martina on 08/08/2017.
+ * @author  mGabellini
  */
 
 public class UserDto {
 
-    public UserDto()
-    {
+    public UserDto() {
         orders=new ArrayList<>();
     }
 
     private int Id;
+
     private String firstName;
     private String lastName;
     private String taxCode;
+    private String email;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public int getId() {
         return Id;

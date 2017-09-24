@@ -1,7 +1,7 @@
 package com.fastdeliveryservice.utility;
 
 /**
- * Created by Martina on 01/08/2017.
+ * Created by Martina
  */
 
 import org.slf4j.Logger;

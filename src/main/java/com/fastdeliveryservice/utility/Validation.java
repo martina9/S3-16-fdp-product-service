@@ -1,7 +1,7 @@
 package com.fastdeliveryservice.utility;
 
 /**
- * Created by Martina on 11/08/2017.
+ * Created by Martina
  */
 public abstract class Validation {
 

@@ -1,21 +1,15 @@
-package com.fastdeliveryservice.model;
-
-import javax.persistence.*;
+package com.fastdeliveryservice.domain;
 
 /**
- * Created by Martina Gabellini
+ * Created by Martina on 24/09/2017.
  */
 
-@MappedSuperclass
-public class BaseEntity {
+public class BaseEntityDto {
 
     private int Id;
     private String name;
     private String code;
 
-    @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    @Column(name = "Id")
     public int getId() {
         return Id;
     }
@@ -24,7 +18,6 @@ public class BaseEntity {
         Id = id;
     }
 
-    @Column(name="name",length = 255,unique = false, nullable = false)
     public String getName() {
         return name;
     }
@@ -33,7 +26,6 @@ public class BaseEntity {
         this.name = name;
     }
 
-    @Column(name="code",length = 255,unique = true, nullable = false)
     public String getCode() {
         return code;
     }
@@ -42,3 +34,4 @@ public class BaseEntity {
         this.code = code;
     }
 }
+

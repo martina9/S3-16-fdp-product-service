@@ -4,7 +4,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 /**
- * Created by Martina on 29/07/2017.
+ * @author  mGabellini
  */
 
     @RunWith(SpringRunner.class)
@@ -15,4 +15,3 @@ import org.springframework.test.context.junit4.SpringRunner;
         public void contextLoads() {
         }
     }
-

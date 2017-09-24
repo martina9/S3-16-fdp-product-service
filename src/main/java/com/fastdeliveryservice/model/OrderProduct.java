@@ -6,7 +6,7 @@ import javax.persistence.Table;
 import java.io.Serializable;
 
 /**
- * Created by Martina on 08/08/2017.
+ * Created by Martina
  */
 
 @Entity
@@ -16,12 +16,12 @@ public class OrderProduct extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public ProductRestourant getProductRestourant() {
-        return productRestourant;
+    public ProductRestaurant getProductRestaurant() {
+        return productRestaurant;
     }
 
-    public void setProductRestourant(ProductRestourant productRestourant) {
-        this.productRestourant = productRestourant;
+    public void setProductRestaurant(ProductRestaurant productRestaurant) {
+        this.productRestaurant = productRestaurant;
     }
 
     private double quantity;
@@ -34,7 +34,6 @@ public class OrderProduct extends BaseEntity implements Serializable {
         this.quantity = quantity;
     }
 
-    @ManyToOne
-    private ProductRestourant productRestourant;
+    private ProductRestaurant productRestaurant;
 }
 
