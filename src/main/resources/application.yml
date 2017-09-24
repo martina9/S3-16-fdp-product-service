@@ -19,7 +19,11 @@ spring:
       globally_quoted_identifiers: true
       idSeller:
         new_generator_mappings: false
-
+  # RabbitMQ properties
+  rabbitmq:
+    host: localhost
+    listener:
+        default-requeue-rejected: false
 endpoints:
   enabled: true
   sensitive: false
@@ -40,9 +44,6 @@ management:
       mode: full
 
 server:
-  context-path: /delivery
-  port: 8080
-  address: localhost
   logging:
     level:
       org:
@@ -52,9 +53,3 @@ server:
             descriptor:
               sql:
                 BasicBinder: TRACE
-
-# RabbitMQ properties
-  rabbitmq:
-    host: localhost
-    listener:
-      default-requeue-rejected: false

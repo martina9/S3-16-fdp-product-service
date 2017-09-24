@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 /**
- * Created by Martina
+ * @author  mGabellini
  */
 
 public class UserDto {

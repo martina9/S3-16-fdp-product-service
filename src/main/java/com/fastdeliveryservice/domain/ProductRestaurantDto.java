@@ -1,15 +1,26 @@
 package com.fastdeliveryservice.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.io.Serializable;
 
 /**
  * Created by Martina Gabellini
  */
-
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ProductRestaurantDto implements Serializable  {
 
+    public ProductRestaurantDto(){}
+
+    public ProductRestaurantDto(int id)
+    {
+        this.id = id;
+    }
+
     private int id ;
+    @JsonProperty("price")
     private double price;
     private int quantity;
     private ProductDto product;

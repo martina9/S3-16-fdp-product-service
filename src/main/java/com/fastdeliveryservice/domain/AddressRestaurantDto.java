@@ -1,13 +1,13 @@
 package com.fastdeliveryservice.domain;
 
 /**
- * Created by Martina
+ * @author  mGabellini
  */
-
 
 public class AddressRestaurantDto {
 
     private int Id;
+
     private String name;
     private String code;
     private String street;

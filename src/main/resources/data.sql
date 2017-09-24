@@ -3,7 +3,7 @@ INSERT IGNORE INTO Categories (code, name) VALUES
   ('DRINK', 'Drink'),
   ('DESSERT', 'Dessert');
 
-INSERT IGNORE INTO Products (code, name, category_id) VALUES
+INSERT IGNORE INTO Products (name, code, category_id) VALUES
 ('Pizza Margherita','MARGHERITA', (SELECT id from categories WHERE code = 'PIZZA')),
 ('Pizza Margherita con Bufala','BUFALA', (SELECT id from categories WHERE code = 'PIZZA')),
 ('Pizza Crudo e Bufala','CRUDBUFALA', (SELECT id from categories WHERE code = 'PIZZA')),

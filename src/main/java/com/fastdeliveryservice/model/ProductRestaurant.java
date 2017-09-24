@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name="Product_Restaurant")
-public class ProductRestaurant extends BaseEntity implements Serializable {
+public class ProductRestaurant  implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private int id;
@@ -25,11 +25,22 @@ public class ProductRestaurant extends BaseEntity implements Serializable {
         this.id = id;
     }
 
+    private String name;
+
+    @Column(length = 255,unique = false, nullable = false)
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     private Restaurant restaurant;
     private Product product;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "RESTAURANT_ID")
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @JoinColumn(name = "RESTAURANT_ID",nullable = false)
     public Restaurant getRestaurant() {
         return restaurant;
     }
@@ -38,8 +49,9 @@ public class ProductRestaurant extends BaseEntity implements Serializable {
         this.restaurant = restaurant;
     }
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "PRODUCT_ID")
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @JoinColumn(name = "PRODUCT_ID",nullable = false)
+
     public Product getProduct() {
         return product;
     }

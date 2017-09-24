@@ -3,7 +3,9 @@ package com.fastdeliveryservice.service;
 import com.fastdeliveryservice.dao.ProductDAO;
 import com.fastdeliveryservice.dao.ProductRestaurantDAO;
 import com.fastdeliveryservice.dao.RestaurantDAO;
+import com.fastdeliveryservice.domain.ProductDto;
 import com.fastdeliveryservice.domain.ProductRestaurantDto;
+import com.fastdeliveryservice.domain.RestaurantDto;
 import com.fastdeliveryservice.model.Product;
 import com.fastdeliveryservice.model.ProductRestaurant;
 import com.fastdeliveryservice.model.Restaurant;
@@ -16,15 +18,18 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
- * Created by Martina Gabellini
+ * @author  mGabellini
  */
 
+@Component
 public class ProductRestaurantMessageService {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -55,7 +60,7 @@ public class ProductRestaurantMessageService {
     }
 
     //Get Restaurant by ID
-    @RabbitListener(queues = "FDP.DeliveryMessageService:Request.ProductRestaurantById")
+    @RabbitListener(queues = "FDP.DeliveryMessageService:Request.ProductRestaurant")
     private String ProductRestaurantById(int productRestaurantId) {
         logger.debug("Sending RPC response message with id of created order...");
         ProductRestaurant restaurant =  productRestaurantDAO.getProductRestaurant(productRestaurantId);
@@ -64,17 +69,49 @@ public class ProductRestaurantMessageService {
 
     //Get Restaurant by ID
     @RabbitListener(queues = "FDP.DeliveryMessageService:Request.ProductRestaurantByRestaurantId")
-    private String  ProductRestaurantByRestaurantId(int restaurantId) {
-        logger.debug("Sending RPC response message with id of created order...");
+    private String  ProductRestaurantByRestaurantById(int restaurantId) throws Exception {
+        logger.debug("Sending RPC response message with id of created order.Int.");
 
-        List<ProductRestaurant> products =  productRestaurantDAO.getProductListByRestaurantId(restaurantId);
+        List<ProductRestaurant> products = new ArrayList<>();
+
+            List<ProductRestaurant> tempProducts =  productRestaurantDAO.getProductListByRestaurantId(restaurantId);
+            if(!tempProducts.isEmpty()) {
+                products.addAll(tempProducts);
+            }
+
+       return serializeToJson(products);
+    }
+
+    //Get Restaurant by code
+    @RabbitListener(queues = "FDP.DeliveryMessageService:Request.ProductRestaurantByRestaurantCode")
+    private String  ProductRestaurantByRestaurantByCode(String restaurantCode) throws Exception {
+        logger.debug("Sending RPC response message with id of created order.Int.");
+
+        List<ProductRestaurant> products;
+
+       if( restaurantCode != null){
+            products =  productRestaurantDAO.getProductListByRestaurantCode(restaurantCode);
+        }
+        else{
+            throw new Exception("Params not found , missing RestaurantID or RestaurantCode");
+        }
         return serializeToJson(products);
     }
 
     //Add Product Restaurant
     @RabbitListener(queues = "FDP.DeliveryMessageService:Request.AddProductRestaurant")
-    private boolean AddProductRestaurant(ProductRestaurantDto productRestaurantDtO) {
+    private Integer AddProductRestaurant(ProductRestaurantDto productRestaurantDtO) throws Exception {
         logger.debug("Sending RPC response message with id of created order...");
+
+        if(productRestaurantDtO.getRestaurant() == null)
+        {
+            throw new Exception("Restaurant is null");
+        }
+
+        if(productRestaurantDtO.getProduct() == null)
+        {
+            throw new Exception("Product is null");
+        }
 
         ProductRestaurant productRestaurant = new ProductRestaurant();
         productRestaurant.setPrice(productRestaurantDtO.getPrice());
@@ -87,20 +124,25 @@ public class ProductRestaurantMessageService {
         productRestaurant.setProduct(product);
 
         //Add Product Restaurant
-        productRestaurantDAO.addProductRestaurant(productRestaurant);
-        return true;
+        int productId = productRestaurantDAO.addProductRestaurant(productRestaurant);
+        return productId;
     }
 
     //Update Product Restaurant
     @RabbitListener(queues = "FDP.DeliveryMessageService:Request.UpdateProductRestaurant")
     private boolean UpdateProductRestaurant(ProductRestaurantDto productRestaurantDtO) {
-        logger.debug("Sending RPC response message with id of created order...");
+        logger.debug("Sending RPC response message with id of update product restaurant...");
 
-        //call method in line 52
         //Get product restaurant by id
         ProductRestaurant productRestaurant = productRestaurantDAO.getProductRestaurant(productRestaurantDtO.getId());
         productRestaurant.setPrice(productRestaurantDtO.getPrice());
         productRestaurant.setName(productRestaurantDtO.getName());
+
+        Product product = productDAO.getId(productRestaurantDtO.getProduct().getId());
+        productRestaurant.setProduct(product);
+
+        Restaurant restaurant = restaurantDAO.getRestaurantById(productRestaurantDtO.getRestaurant().getId());
+        productRestaurant.setRestaurant(restaurant);
 
         //Update Product Restaurant
         productRestaurantDAO.updateProductRestaurant(productRestaurant);
@@ -109,11 +151,11 @@ public class ProductRestaurantMessageService {
 
     //Delete Product Restaurant
     @RabbitListener(queues = "FDP.DeliveryMessageService:Request.DeleteProductRestaurant")
-    private void DeleteProductRestaurant(ProductRestaurantDto productRestaurantDtO) {
+    private void DeleteProductRestaurant(int id) {
         logger.debug("Sending RPC response message with id of created order...");
 
         //Delete Product Restaurant from ID
-        productRestaurantDAO.deleteProductRestaurant(productRestaurantDtO.getId());
+        productRestaurantDAO.deleteProductRestaurant(id);
     }
 
     private String serializeToJson(List<ProductRestaurant> productRestaurants) {
@@ -135,6 +177,19 @@ public class ProductRestaurantMessageService {
     }
 
     private String serializeToJson(ProductRestaurant productRestaurant) {
+        ProductRestaurantDto productRestaurantDto = new ProductRestaurantDto();
+        productRestaurantDto.setPrice(productRestaurant.getPrice());
+        productRestaurantDto.setName(productRestaurant.getName());
+        productRestaurantDto.setId(productRestaurant.getId());
+
+        ProductDto productDto = new ProductDto();
+        productDto.setId(productRestaurant.getProduct().getId());
+        productRestaurantDto.setProduct(productDto);
+
+        RestaurantDto restaurantDto = new RestaurantDto();
+        restaurantDto.setId(productRestaurant.getRestaurant().getId());
+        productRestaurantDto.setRestaurant(restaurantDto);
+
         ObjectMapper mapper = new ObjectMapper();
         String jsonInString = "";
 

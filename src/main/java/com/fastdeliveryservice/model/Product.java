@@ -1,5 +1,8 @@
 package com.fastdeliveryservice.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -18,7 +21,8 @@ import java.util.Set;
 
         private Set<ProductRestaurant> productRestaurants = new HashSet<>();
 
-        @OneToMany(mappedBy = "restaurant")
+        @JsonIgnore
+        @OneToMany(mappedBy = "restaurant", fetch = FetchType.EAGER)
         public Set<ProductRestaurant> getProductRestaurants() {
             return productRestaurants;
         }
@@ -45,7 +49,8 @@ import java.util.Set;
 
         private Set<Ingredient> ingredients;
 
-        @ManyToMany(cascade=CascadeType.ALL)
+
+        @ManyToMany(cascade=CascadeType.MERGE, fetch = FetchType.EAGER)
         @JoinTable(name="product_ingredient", joinColumns=@JoinColumn(name="product_id"), inverseJoinColumns=@JoinColumn(name="ingredient_id"))
         public Set<Ingredient> getIngredients()
         {

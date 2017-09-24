@@ -7,10 +7,13 @@ import org.springframework.amqp.core.DirectExchange;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.stereotype.Component;
 
 /**
- * Created by Martina Gabellini
+ * @author  mGabellini
  */
+
+@Component
 public class ProductMessageService {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());

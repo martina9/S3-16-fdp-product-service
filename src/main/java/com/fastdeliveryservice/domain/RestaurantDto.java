@@ -1,13 +1,15 @@
 package com.fastdeliveryservice.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 
 /**
- * Created by Martina Gabellini
+ * @author  mGabellini
  */
-
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class RestaurantDto implements Serializable {
 
     public String email;

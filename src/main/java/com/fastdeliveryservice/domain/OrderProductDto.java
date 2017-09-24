@@ -1,15 +1,12 @@
 package com.fastdeliveryservice.domain;
 
-import com.fastdeliveryservice.model.BaseEntity;
-
-import javax.persistence.ManyToOne;
 import java.io.Serializable;
 
 /**
- * Created by Martina
+ * @author  mGabellini
  */
 
-public class OrderProductDto extends BaseEntity implements Serializable {
+public class OrderProductDto extends BaseEntityDto implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -31,7 +28,6 @@ public class OrderProductDto extends BaseEntity implements Serializable {
         this.quantity = quantity;
     }
 
-    @ManyToOne
     private ProductRestaurantDto productRestourant;
 }
 

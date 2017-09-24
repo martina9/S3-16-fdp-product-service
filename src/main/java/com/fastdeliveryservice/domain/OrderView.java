@@ -3,8 +3,9 @@ package com.fastdeliveryservice.domain;
 import java.util.List;
 
 /**
- * Created by Martina
+ * @author  mGabellini
  */
+
 public class OrderView {
 
     private List<Integer> products;
