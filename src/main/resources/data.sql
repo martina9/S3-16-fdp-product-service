@@ -9,33 +9,49 @@ INSERT IGNORE INTO Products (name, code, category_id) VALUES
 ('Pizza Crudo e Bufala','CRUDBUFALA', (SELECT id from categories WHERE code = 'PIZZA')),
 ('Pizza con Salsiccia e Friarielli','SALSFRIARIELLI', (SELECT id from categories WHERE code = 'PIZZA')),
 ('Coca Cola', 'COCACOLA', (SELECT id from categories WHERE code = 'DRINK')),
- ('Cheesecake','CHEESECAKE', (SELECT id from categories WHERE code = 'DESSERT')),
- ('Tiramisu','TIRAMISU', (SELECT id from categories WHERE code = 'DESSERT'));
+('Cheesecake','CHEESECAKE', (SELECT id from categories WHERE code = 'DESSERT')),
+('Tiramisu','TIRAMISU', (SELECT id from categories WHERE code = 'DESSERT'));
 
 
-INSERT IGNORE INTO ingredients (code, name, category_id) VALUES
-  ('MOZZARELLA', 'Mozzarella', (SELECT id FROM Categories WHERE code = 'FOOD')),
-  ('POMODORO', 'Pomodoro', (SELECT id FROM Categories WHERE code = 'FOOD')),
-  ('PATATAFRITTA', 'Patata Fritta', (SELECT id FROM Categories WHERE code = 'FOOD')),
-  ('PROSCIUTTOCOTTO', 'Prosciutto Cotto', (SELECT id FROM Categories WHERE code = 'FOOD')),
-  ('CARCIOFINI', 'Carciofini', (SELECT id FROM Categories WHERE code = 'FOOD')),
-  ('FARINADIGRANO', 'Farina Di Grano', (SELECT id FROM Categories WHERE code = 'FOOD')),
-  ('FARINADIKAMUT', 'Farina Di Kamut', (SELECT id FROM Categories WHERE code = 'FOOD')),
-  ('OLIVENERE', 'OliveNere', (SELECT id FROM Categories WHERE code = 'FOOD')),
-  ('OLIVENERE', 'OliveVerdi', (SELECT id FROM Categories WHERE code = 'FOOD')),
-  ('UOVASODE', 'Uova Sode', (SELECT id FROM Categories WHERE code = 'FOOD')),
-  ('TIRAMISU', 'Tiramisù', (SELECT id FROM Categories WHERE code = 'DESSERT')),
-  ('PANNACOTTA', 'Panna Cotta', (SELECT id FROM Categories WHERE code = 'DESSERT')),
-  ('YOGURT', 'Yogurt', (SELECT id FROM Categories WHERE code = 'DESSERT')),
-  ('MACEDONIA', 'Macedonia Di Frutta Stagionale', (SELECT id FROM Categories WHERE code = 'DESSERT')),
-  ('COCACOLA', 'CocaCola', (SELECT id FROM Categories WHERE code = 'DRINK')),
-  ('ACQUA', 'Acqua', (SELECT id FROM Categories WHERE code = 'DRINK')),
-  ('FANTA', 'Fanta', (SELECT id FROM Categories WHERE code = 'DRINK')),
-  ('SPRITE', 'Sprite', (SELECT id FROM Categories WHERE code = 'DRINK')),
-  ('GINGER', 'Ginger', (SELECT id FROM Categories WHERE code = 'DRINK')),
-  ('BIRRA', 'Birra', (SELECT id FROM Categories WHERE code = 'DRINK'));
+INSERT IGNORE INTO ingredients (code, name) VALUES
+  ('FRIARIELLI', 'Friarielli'),
+  ('MOZZARELLA', 'Mozzarella'),
+  ('MOZZARELLABUFALA', 'Mozzarella di Bufala'),
+  ('POMODORO', 'Pomodoro'),
+  ('PATATAFRITTA', 'Patata Fritta'),
+  ('PROSCIUTTOCRUDO', 'Prosciutto Crudo'),
+  ('PROSCIUTTOCOTTO', 'Prosciutto Cotto'),
+  ('CARCIOFINI', 'Carciofini'),
+  ('FARINADIGRANO', 'Farina Di Grano'),
+  ('FARINADIKAMUT', 'Farina Di Kamut'),
+  ('OLIVENERE', 'OliveNere'),
+  ('OLIVENERE', 'OliveVerdi'),
+  ('UOVASODE', 'Uova Sode'),
+  ('UOVA', 'Uova'),
+  ('PANNACOTTA', 'Panna Cotta'),
+  ('YOGURT', 'Yogurt'),
+  ('MACEDONIA', 'Macedonia Di Frutta Stagionale'),
+  ('COCACOLA', 'CocaCola'),
+  ('ACQUA', 'Acqua'),
+  ('CAFFE', 'Cafe'),
+  ('FANTA', 'Fanta'),
+  ('SPRITE', 'Sprite'),
+  ('GINGER', 'Ginger'),
+  ('BIRRA', 'Birra');
 
-
+INSERT IGNORE INTO product_ingredient (product_id, ingredient_id) VALUES
+((SELECT id FROM Products WHERE code = 'MARGHERITA'),(SELECT id FROM ingredients WHERE code = 'MOZZARELLA')),
+((SELECT id FROM Products WHERE code = 'MARGHERITA'),(SELECT id FROM ingredients WHERE code = 'POMODORO')),
+((SELECT id FROM Products WHERE code = 'BUFALA'),(SELECT id FROM ingredients WHERE code = 'POMODORO')),
+((SELECT id FROM Products WHERE code = 'BUFALA'),(SELECT id FROM ingredients WHERE code = 'MOZZARELLABUFALA')),
+((SELECT id FROM Products WHERE code = 'CRUDBUFALA'),(SELECT id FROM ingredients WHERE code = 'PROSCIUTTOCRUDO')),
+((SELECT id FROM Products WHERE code = 'CRUDBUFALA'),(SELECT id FROM ingredients WHERE code = 'MOZZARELLABUFALA')),
+((SELECT id FROM Products WHERE code = 'SALSFRIARIELLI'),(SELECT id FROM ingredients WHERE code = 'MOZZARELLA')),
+((SELECT id FROM Products WHERE code = 'SALSFRIARIELLI'),(SELECT id FROM ingredients WHERE code = 'FRIARIELLI')),
+((SELECT id FROM Products WHERE code = 'CHEESECAKE'),(SELECT id FROM ingredients WHERE code = 'YOGURT')),
+((SELECT id FROM Products WHERE code = 'COCACOLA'),(SELECT id FROM ingredients WHERE code = 'ACQUA')),
+((SELECT id FROM Products WHERE code = 'TIRAMISU'),(SELECT id FROM ingredients WHERE code = 'CAFFE')),
+((SELECT id FROM Products WHERE code = 'TIRAMISU'),(SELECT id FROM ingredients WHERE code = 'UOVA'));
 
 
 INSERT IGNORE INTO Restaurants (code) VALUES

@@ -1,7 +1,6 @@
 package com.fastdeliveryservice.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -48,7 +47,6 @@ import java.util.Set;
         }
 
         private Set<Ingredient> ingredients;
-
 
         @ManyToMany(cascade=CascadeType.MERGE, fetch = FetchType.EAGER)
         @JoinTable(name="product_ingredient", joinColumns=@JoinColumn(name="product_id"), inverseJoinColumns=@JoinColumn(name="ingredient_id"))

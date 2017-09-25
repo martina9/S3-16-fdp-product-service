@@ -13,16 +13,5 @@ import java.util.Set;
 public class Ingredient extends BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private Category category;
-
-    @ManyToOne
-    @JoinColumn(name = "category_id")
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
 }
 
