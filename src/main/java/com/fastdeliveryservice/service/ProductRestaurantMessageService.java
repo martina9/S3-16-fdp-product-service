@@ -130,7 +130,7 @@ public class ProductRestaurantMessageService {
 
     //Update Product Restaurant
     @RabbitListener(queues = "FDP.DeliveryMessageService:Request.UpdateProductRestaurant")
-    private boolean UpdateProductRestaurant(ProductRestaurantDto productRestaurantDtO) {
+    private int UpdateProductRestaurant(ProductRestaurantDto productRestaurantDtO) {
         logger.debug("Sending RPC response message with id of update product restaurant...");
 
         //Get product restaurant by id
@@ -146,16 +146,19 @@ public class ProductRestaurantMessageService {
 
         //Update Product Restaurant
         productRestaurantDAO.updateProductRestaurant(productRestaurant);
-        return true;
+
+        return productRestaurantDtO.getId();
     }
 
     //Delete Product Restaurant
     @RabbitListener(queues = "FDP.DeliveryMessageService:Request.DeleteProductRestaurant")
-    private void DeleteProductRestaurant(int id) {
+    private int DeleteProductRestaurant(int id) {
         logger.debug("Sending RPC response message with id of created order...");
 
         //Delete Product Restaurant from ID
         productRestaurantDAO.deleteProductRestaurant(id);
+
+        return id;
     }
 
     private String serializeToJson(List<ProductRestaurant> productRestaurants) {
