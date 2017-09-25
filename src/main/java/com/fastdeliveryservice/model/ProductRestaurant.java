@@ -8,7 +8,7 @@ import java.io.Serializable;
  */
 
 @Entity
-@Table(name="Product_Restaurant")
+@Table(name="Product_Restaurant",indexes = { @Index(name = "IDX_Product_Restaurant", columnList = "RESTAURANT_ID,PRODUCT_ID",unique = true)} )
 public class ProductRestaurant  implements Serializable {
     private static final long serialVersionUID = 1L;
 
