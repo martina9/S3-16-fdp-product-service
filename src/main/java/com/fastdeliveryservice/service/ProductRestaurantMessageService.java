@@ -138,12 +138,6 @@ public class ProductRestaurantMessageService {
         productRestaurant.setPrice(productRestaurantDtO.getPrice());
         productRestaurant.setName(productRestaurantDtO.getName());
 
-        Product product = productDAO.getId(productRestaurantDtO.getProduct().getId());
-        productRestaurant.setProduct(product);
-
-        Restaurant restaurant = restaurantDAO.getRestaurantById(productRestaurantDtO.getRestaurant().getId());
-        productRestaurant.setRestaurant(restaurant);
-
         //Update Product Restaurant
         productRestaurantDAO.updateProductRestaurant(productRestaurant);
 

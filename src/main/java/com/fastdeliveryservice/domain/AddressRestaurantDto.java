@@ -5,7 +5,6 @@ package com.fastdeliveryservice.domain;
  */
 
 public class AddressRestaurantDto {
-
     private int Id;
 
     private String name;
@@ -80,4 +79,3 @@ public class AddressRestaurantDto {
         this.city = city;
     }
 }
-

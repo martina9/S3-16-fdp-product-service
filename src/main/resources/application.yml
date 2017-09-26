@@ -13,7 +13,7 @@ spring:
   jpa:
     generate-ddl: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
       dialect: org.hibernate.dialect.MySQL5InnoDBDialect
       generate-ddl: true
       globally_quoted_identifiers: true

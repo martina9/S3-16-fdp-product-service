@@ -3,7 +3,7 @@ package com.fastdeliveryservice.dao;
 import com.fastdeliveryservice.model.User;
 
 /**
- * Created by Martina
+ * @author  mGabellini
  */
 
 public interface IUserDAO {

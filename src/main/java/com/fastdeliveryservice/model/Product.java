@@ -50,8 +50,7 @@ import java.util.Set;
 
         @ManyToMany(cascade=CascadeType.MERGE, fetch = FetchType.EAGER)
         @JoinTable(name="product_ingredient", joinColumns=@JoinColumn(name="product_id"), inverseJoinColumns=@JoinColumn(name="ingredient_id"))
-        public Set<Ingredient> getIngredients()
-        {
+        public Set<Ingredient> getIngredients() {
             return ingredients;
         }
         public void setIngredients(Set<Ingredient> ingredients)

@@ -8,7 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 /**
- * Created by Martina Gabellini
+ * @author  mGabellini
  */
 
 @Transactional
@@ -22,5 +22,4 @@ public class UserDAO implements IUserDAO {
     public User getUserById(int userId) {
         return entityManager.find(User.class, userId);
     }
-
-} 
+}

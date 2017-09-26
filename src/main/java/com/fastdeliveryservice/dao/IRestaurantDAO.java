@@ -5,7 +5,7 @@ import com.fastdeliveryservice.model.Restaurant;
 import java.util.List;
 
 /**
- * Created by Martina
+ * @author  mGabellini
  */
 
 public interface IRestaurantDAO {

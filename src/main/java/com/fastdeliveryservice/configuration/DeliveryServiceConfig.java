@@ -26,7 +26,7 @@ public class DeliveryServiceConfig {
 
     @Bean
     public DirectExchange directExchange() {
-        return new DirectExchange("deliveryService.rpc");
+        return new DirectExchange("easy_net_q_rpc");
     }
 
     /* Product Restaurant*/
@@ -42,8 +42,6 @@ public class DeliveryServiceConfig {
     public Queue queueProductRestaurantById() {
         return new Queue("FDP.DeliveryMessageService:Request.ProductRestaurant");
     }
-
-
 
     /**
      * Returns an Binding for process message about request ProductRestaurantByRestaurantId.
@@ -207,43 +205,4 @@ public class DeliveryServiceConfig {
         return BindingBuilder.bind(queue).to(exchange).with("FDP.DeliveryMessageService:Request.RestaurantList");
     }
 
-    @Bean
-    public Queue QueueOrderList() {
-        return new Queue("FDP.DeliveryMessageService:Request.OrderList");
-    }
-
-    @Bean
-    public Queue QueueOrder() {
-        return new Queue("FDP.DeliveryMessageService:Request.Order");
-    }
-
-    @Bean
-    public Queue QueueAddOrder() {
-        return new Queue("FDP.DeliveryMessageService:Request.AddOrder");
-    }
-
-    @Bean
-    public Queue QueueUpdateOrder() {
-        return new Queue("FDP.DeliveryMessageService:Request.UpdateOrder");
-    }
-
-    @Bean
-    public Binding bindingOrderList(DirectExchange exchange, @Qualifier("QueueOrderList") Queue queue) {
-        return BindingBuilder.bind(queue).to(exchange).with("FDP.DeliveryMessageService:Request.OrderList");
-    }
-
-    @Bean
-    public Binding bindingOrder(DirectExchange exchange, @Qualifier("QueueOrder") Queue queue) {
-        return BindingBuilder.bind(queue).to(exchange).with("FDP.DeliveryMessageService:Request.Order");
-    }
-
-    @Bean
-    public Binding bindingAddOrder(DirectExchange exchange, @Qualifier("QueueAddOrder") Queue queue) {
-        return BindingBuilder.bind(queue).to(exchange).with("FDP.DeliveryMessageService:Request.AddOrder");
-    }
-
-    @Bean
-    public Binding bindingUpdateOrder(DirectExchange exchange, @Qualifier("QueueUpdateOrder") Queue queue) {
-        return BindingBuilder.bind(queue).to(exchange).with("FDP.DeliveryMessageService:Request.UpdateOrder");
-    }
 }

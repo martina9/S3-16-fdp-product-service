@@ -1,7 +1,7 @@
 package com.fastdeliveryservice.domain;
 
 /**
- * Created by Martina on 24/09/2017.
+ * @author  mGabellini
  */
 
 public class BaseEntityDto {

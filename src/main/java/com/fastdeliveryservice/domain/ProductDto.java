@@ -8,6 +8,7 @@ import java.util.List;
 /**
  * @author  mGabellini
  */
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ProductDto implements Serializable {
     private int id;
