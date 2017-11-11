@@ -13,6 +13,11 @@ public class ProductRestaurant  implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private int id;
+    private int quantity;
+
+    private String name;
+
+    private double price;
 
     public int getQuantity() {
         return quantity;
@@ -21,8 +26,6 @@ public class ProductRestaurant  implements Serializable {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
-
-    private int quantity;
 
     @Id
     @GeneratedValue
@@ -34,8 +37,6 @@ public class ProductRestaurant  implements Serializable {
     public void setId(int id) {
         this.id = id;
     }
-
-    private String name;
 
     @Column(length = 255,unique = false, nullable = false)
     public String getName() {
@@ -70,7 +71,6 @@ public class ProductRestaurant  implements Serializable {
         this.product = product;
     }
 
-    private double price;
 
     public double getPrice() {
         return price;

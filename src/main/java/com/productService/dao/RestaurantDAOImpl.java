@@ -20,10 +20,22 @@ public class RestaurantDAOImpl implements RestaurantDAO {
     @PersistenceContext
     private EntityManager entityManager;
 
+    /**
+     * Return an Restaurant by id using query.
+     *
+     * @return Restaurant
+     */
+
     @Override
     public Restaurant getRestaurantById(int restaurantId) {
         return entityManager.find(Restaurant.class, restaurantId);
     }
+
+    /**
+     * Return an List<Restaurant> by city using query.
+     *
+     * @return List<Restaurant>
+     */
 
     @Override
     public List<Restaurant> getRestaurantsByCity(String city) {
@@ -32,16 +44,36 @@ public class RestaurantDAOImpl implements RestaurantDAO {
         return restaurant;
     }
 
+    /**
+     * Return an List<Restaurant> using query.
+     *
+     * @return List<Restaurant>
+     */
+
     @Override
     public List<Restaurant> getAllRestaurants() {
         String hql = "Select r FROM Restaurant as r ORDER BY r.id";
         return (List<Restaurant>) entityManager.createQuery(hql).getResultList();
     }
 
+    /**
+     * Return an added restaurant.
+     *
+     * @param restaurant
+     * @return entityManager to add restaurant
+     */
+
     @Override
     public void addRestaurant(Restaurant restaurant) {
         entityManager.persist(restaurant);
     }
+
+    /**
+     * Return an updated restaurant.
+     *
+     * @param restaurant
+     * @return entityManager to update restaurant
+     */
 
     @Override
     public void updateRestaurant(Restaurant restaurant) {
@@ -50,10 +82,24 @@ public class RestaurantDAOImpl implements RestaurantDAO {
                 entityManager.flush();
     }
 
+    /**
+     * Return an deleted restaurant.
+     *
+     * @param restaurantId
+     * @return entityManager to delete restaurant
+     */
+
     @Override
     public void deleteRestaurant(int restaurantId) {
         entityManager.remove(getRestaurantById(restaurantId));
     }
+
+    /**
+     * Return an count to check if restaurant exists.
+     *
+     * @param code
+     * @return boolean to query restaurant from code
+     */
 
     @Override
     public boolean RestaurantExists(String code) {

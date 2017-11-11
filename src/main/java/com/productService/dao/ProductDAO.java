@@ -11,12 +11,25 @@ import java.util.List;
 
 public interface ProductDAO {
 
+    /**
+     * Return an List<Category> implementation this interface.
+     *
+     * @return List<Category>
+     */
+
     List<Category> getAllCategories();
+
+    /**
+     * Return an Category implementation this interface.
+     *
+     * @param id
+     * @return Category
+     */
 
     Category getCategoryById(int id);
 
     /**
-     * Returns an List<Product> implementation this interface.
+     * Return an List<Product> implementation this interface.
      *
      * @return List<Product>
      */
@@ -24,7 +37,7 @@ public interface ProductDAO {
     List<Product> getAllProducts();
 
     /**
-     * Returns an Product implementation this interface.
+     * Return an Product implementation this interface.
      *
      * @param productId
      * @return Product
@@ -33,7 +46,7 @@ public interface ProductDAO {
     Product getId(int productId);
 
     /**
-     * Returns an added Product implementation this interface.
+     * Return an added Product implementation this interface.
      *
      * @param product
      */
@@ -41,7 +54,7 @@ public interface ProductDAO {
     int addProduct(Product product);
 
     /**
-     * Returns an updated Product implementation this interface.
+     * Return an updated Product implementation this interface.
      *
      * @param product
      */
@@ -49,7 +62,7 @@ public interface ProductDAO {
     void updateProduct(Product product);
 
     /**
-     * Returns an deleted Product implementation this interface.
+     * Return an deleted Product implementation this interface.
      *
      * @param productId
      */
@@ -57,7 +70,7 @@ public interface ProductDAO {
     void deleteProduct(int productId);
 
     /**
-     * Returns an boolean to check if product exists implementation this interface.
+     * Return an boolean to check if product exists implementation this interface.
      *
      * @param code product
      * @return boolean check if product existed

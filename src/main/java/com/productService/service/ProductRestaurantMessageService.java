@@ -63,7 +63,13 @@ public class ProductRestaurantMessageService {
         this.directExchange = directExchange;
     }
 
-    //Get Restaurant by ID
+    /**
+     * Return an ProductRestaurantInfo by id
+     *
+     * @param productRestaurantInfo
+     * @return ProductRestaurantInfo
+     */
+
     @RabbitListener(queues = "FDP.ProductService.MessageDirectory:Request.ProductRestaurantInfo")
     private FDP.ProductService.MessageDirectory.Response.ProductRestaurantInfo ProductRestaurantById(FDP.ProductService.MessageDirectory.Request.ProductRestaurantInfo productRestaurantInfo) {
         logger.debug("Sending RPC response message with id of created order...");
@@ -74,7 +80,13 @@ public class ProductRestaurantMessageService {
         return productInfo;
     }
 
-    //Get Restaurant by ID
+    /**
+     * Return an ProductRestaurantList
+     *
+     * @param request
+     * @return List<ProductRestaurantInfo>
+     */
+
     @RabbitListener(queues = "FDP.ProductService.MessageDirectory:Request.ProductRestaurantList")
     private FDP.ProductService.MessageDirectory.Response.ProductRestaurantList ProductRestaurantList(FDP.ProductService.MessageDirectory.Request.ProductRestaurantList request) throws Exception {
         logger.debug("Sending RPC response message with id of created order.Int.");
@@ -88,13 +100,20 @@ public class ProductRestaurantMessageService {
         return productList;
     }
 
-    //Add Product Restaurant
+    /**
+     * Return an id productRestaurant added
+     *
+     * @param request
+     * @return AddProductRestaurant
+     */
+
     @RabbitListener(queues = "FDP.ProductService.MessageDirectory:Request.AddProductRestaurant")
     private AddProductRestaurant AddProductRestaurant(FDP.ProductService.MessageDirectory.Request.AddProductRestaurant request) throws Exception {
-        logger.debug("Sending RPC response message with id of created order...");
         ProductRestaurant productToSave = new ProductRestaurant();
+
         Product product = productDAOImpl.getId(request.getProductId());
         Restaurant restaurant = restaurantDAOImpl.getRestaurantById(request.getRestaurantId());
+
         productToSave.setProduct(product);
         productToSave.setRestaurant(restaurant);
         productToSave.setName(request.getName());
@@ -108,35 +127,53 @@ public class ProductRestaurantMessageService {
         return response;
     }
 
-    //Update Product Restaurant
+    /**
+     * Return an id productRestaurant updated
+     *
+     * @param request
+     * @return UpdateProductRestaurant
+     */
+
     @RabbitListener(queues = "FDP.ProductService.MessageDirectory:Request.UpdateProductRestaurant")
     private UpdateProductRestaurant UpdateProductRestaurant(FDP.ProductService.MessageDirectory.Request.UpdateProductRestaurant request) {
-        logger.debug("Sending RPC response message with id of update product restaurant...");
-
         ProductRestaurant productToUpdate = productRestaurantDAOImpl.getProductRestaurant(request.getId());
         Product product = productDAOImpl.getId(request.getProductId());
         Restaurant restaurant = restaurantDAOImpl.getRestaurantById(request.getRestaurantId());
+
         productToUpdate.setProduct(product);
         productToUpdate.setRestaurant(restaurant);
         productToUpdate.setName(request.getName());
         productToUpdate.setPrice(request.getPrice());
         productToUpdate.setQuantity(request.getQuantity());
+
         productRestaurantDAOImpl.updateProductRestaurant(productToUpdate);
         UpdateProductRestaurant response = new UpdateProductRestaurant();
         response.setId(request.getId());
         return response;
     }
 
-    //Delete Product Restaurant
+    /**
+     * Return an id productRestaurant deleted
+     *
+     * @param request
+     * @return DeleteProductRestaurant
+     */
+
     @RabbitListener(queues = "FDP.ProductService.MessageDirectory:Request.DeleteProductRestaurant")
     private DeleteProductRestaurant DeleteProductRestaurant(FDP.ProductService.MessageDirectory.Request.DeleteProductRestaurant request) {
-        logger.debug("Sending RPC response message with id of created order...");
         productRestaurantDAOImpl.deleteProductRestaurant(request.getId());
-        //Delete Product Restaurant from
+
         DeleteProductRestaurant response = new DeleteProductRestaurant();
         response.setId(request.getId());
         return response;
     }
+
+    /**
+     * Return an ProductRestaurantInfo from ProductRestaurant
+     *
+     * @param product
+     * @return ProductRestaurantInfo
+     */
 
     public ProductRestaurantInfo ConvertFromProduct(ProductRestaurant product) {
         ProductRestaurantInfo productRestaurantInfo = new ProductRestaurantInfo();
@@ -149,6 +186,5 @@ public class ProductRestaurantMessageService {
         productRestaurantInfo.setProductName(product.getProduct().getName());
         productRestaurantInfo.setRestaurantName(product.getRestaurant().getName());
         return productRestaurantInfo;
-
     }
 }

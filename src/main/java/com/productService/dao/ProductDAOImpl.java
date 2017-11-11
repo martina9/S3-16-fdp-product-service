@@ -20,7 +20,7 @@ public class ProductDAOImpl implements ProductDAO {
     private EntityManager entityManager;
 
     /**
-     * Returns an Product by id using query.
+     * Return an Product by id using query.
      *
      * @return Product
      */
@@ -32,7 +32,7 @@ public class ProductDAOImpl implements ProductDAO {
     }
 
     /**
-     * Returns an List<Product> using query.
+     * Return an List<Product> using query.
      *
      * @return List<Product>
      */
@@ -45,7 +45,7 @@ public class ProductDAOImpl implements ProductDAO {
     }
 
     /**
-     * Returns an list of Category.
+     * Return an list of Category.
      *
      * @return List<Category>
      */
@@ -57,7 +57,7 @@ public class ProductDAOImpl implements ProductDAO {
     }
 
     /**
-     * Returns an Category by id.
+     * Return an Category by id.
      *
      * @param id
      * @return Category
@@ -70,7 +70,7 @@ public class ProductDAOImpl implements ProductDAO {
     }
 
     /**
-     * Returns an added product.
+     * Return an added product.
      *
      * @param product
      * @return entityManager to add product
@@ -84,7 +84,7 @@ public class ProductDAOImpl implements ProductDAO {
     }
 
     /**
-     * Returns an updated product.
+     * Return an updated product.
      *
      * @param product
      * @return entityManager to update product
@@ -96,7 +96,7 @@ public class ProductDAOImpl implements ProductDAO {
     }
 
     /**
-     * Returns an deleted product.
+     * Return an deleted product.
      *
      * @param productId
      * @return entityManager to remove product by id
@@ -108,11 +108,10 @@ public class ProductDAOImpl implements ProductDAO {
     }
 
     /**
-     * Returns an count to check if product exists.
+     * Return an count to check if product exists.
      *
      * @param code product
      * @return boolean to query product from code
-     * @see    boolean
      */
 
     @Override

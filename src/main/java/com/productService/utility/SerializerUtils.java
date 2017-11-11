@@ -8,8 +8,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by Martina
+ * @author  mGabellini
  */
+
 public final class  SerializerUtils {
 
     public static <T> String serializeToJson(Class<T> typeKey) {

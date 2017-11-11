@@ -56,7 +56,7 @@ public class ProductMessageService {
      * Return an ProductList by id
      *
      * @param requestProductList
-     * @return ProductList
+     * @return List<ProductInfo>
      */
 
     @RabbitListener(queues = "FDP.ProductService.MessageDirectory:Request.ProductList")
@@ -72,7 +72,7 @@ public class ProductMessageService {
      * Return an CategoryList by id
      *
      * @param requestCategoryList
-     * @return CategoryList
+     * @return List<CategoryInfo>
      */
 
     @RabbitListener(queues = "FDP.ProductService.MessageDirectory:Request.CategoryList")
@@ -91,7 +91,7 @@ public class ProductMessageService {
      * @return ProductInfo
      */
 
-    @RabbitListener(queues = "FDP.ProductService.MessageDirectory:Request.Product")
+    @RabbitListener(queues = "FDP.ProductService.MessageDirectory:Request.ProductInfo")
     private ProductInfo Product(FDP.ProductService.MessageDirectory.Request.ProductInfo info) throws Exception {
         Product product =  productDAO.getId(info.getId());
         ProductInfo productInfo = ConvertFromProduct(product);
@@ -107,8 +107,6 @@ public class ProductMessageService {
 
     @RabbitListener(queues = "FDP.ProductService.MessageDirectory:Request.AddProduct")
     private AddProduct addProduct(FDP.ProductService.MessageDirectory.Request.AddProduct addProduct) throws Exception {
-        logger.debug("Sending RPC response message with id of created order.Int.");
-
         Product productToSave = new Product();
         Category category = productDAO.getCategoryById(addProduct.getCategoryId());
         productToSave.setCategory(category);
@@ -130,8 +128,6 @@ public class ProductMessageService {
 
     @RabbitListener(queues = "FDP.ProductService.MessageDirectory:Request.DeleteProduct")
     private DeleteProduct Product(FDP.ProductService.MessageDirectory.Request.DeleteProduct deleteProduct) throws Exception {
-        logger.debug("Sending RPC response message with id of created order.Int.");
-
         productDAO.deleteProduct(deleteProduct.getId());
 
         DeleteProduct response = new DeleteProduct();
@@ -148,8 +144,6 @@ public class ProductMessageService {
 
     @RabbitListener(queues = "FDP.ProductService.MessageDirectory:Request.UpdateProduct")
     private UpdateProduct Product(FDP.ProductService.MessageDirectory.Request.UpdateProduct updateProduct) throws Exception {
-        logger.debug("Sending RPC response message with id of created order.Int.");
-
         Product productToUpdate = productDAO.getId(updateProduct.getId());
         Category category = productDAO.getCategoryById(updateProduct.getCategoryId());
 
@@ -162,6 +156,13 @@ public class ProductMessageService {
         response.setId(productToUpdate.getId());
         return response;
     }
+
+    /**
+     * Return an ProductInfo from Product
+     *
+     * @param product
+     * @return ProductInfo
+     */
 
     public ProductInfo ConvertFromProduct(Product product) {
         ProductInfo productInfo = new ProductInfo(product.getId(), product.getName(), product.getCode(), product.getCategory().getId(), product.getCategory().getName());

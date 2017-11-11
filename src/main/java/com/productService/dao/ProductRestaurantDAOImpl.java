@@ -20,7 +20,7 @@ public class ProductRestaurantDAOImpl implements ProductRestaurantDAO {
     private EntityManager entityManager;
 
     /**
-     * Returns an productRestaurant by id using query.
+     * Return an productRestaurant by id using query.
      *
      * @param productRestaurantId
      * @return ProductRestaurant
@@ -33,7 +33,7 @@ public class ProductRestaurantDAOImpl implements ProductRestaurantDAO {
     }
 
     /**
-     * Returns an added ProductRestaurant.
+     * Return an added ProductRestaurant.
      *
      * @param productRestaurant
      */
@@ -47,7 +47,7 @@ public class ProductRestaurantDAOImpl implements ProductRestaurantDAO {
     }
 
     /**
-     * Returns an updated ProductRestaurant.
+     * Return an updated ProductRestaurant.
      *
      * @param productRestaurant
      */
@@ -58,7 +58,7 @@ public class ProductRestaurantDAOImpl implements ProductRestaurantDAO {
     }
 
     /**
-     * Returns an count to check if ProductRestaurant exists.
+     * Return an count to check if ProductRestaurant exists.
      *
      * @param idProduct
      * @param idRestaurant
@@ -75,7 +75,7 @@ public class ProductRestaurantDAOImpl implements ProductRestaurantDAO {
 
 
     /**
-     * Returns an deleted ProductRestaurant.
+     * Return an deleted ProductRestaurant.
      *
      * @param productRestaurantId
      */
@@ -87,7 +87,7 @@ public class ProductRestaurantDAOImpl implements ProductRestaurantDAO {
     }
 
     /**
-     * Returns an List<ProductRestaurant>.
+     * Return an List<ProductRestaurant>.
      *
      * @param ids List restaurants
      * @return List<ProductRestaurant>
@@ -102,7 +102,7 @@ public class ProductRestaurantDAOImpl implements ProductRestaurantDAO {
     }
 
     /**
-     * Returns an List<ProductRestaurant>.
+     * Return an List<ProductRestaurant>.
      *
      * @param restaurantId
      * @return List<ProductRestaurant>
@@ -117,7 +117,7 @@ public class ProductRestaurantDAOImpl implements ProductRestaurantDAO {
     }
 
     /**
-     * Returns an List<ProductRestaurant>.
+     * Return an List<ProductRestaurant>.
      *
      * @param restaurantCode
      * @return List<ProductRestaurant>
@@ -132,7 +132,7 @@ public class ProductRestaurantDAOImpl implements ProductRestaurantDAO {
     }
 
     /**
-     * Returns an List<ProductRestaurant>.
+     * Return an List<ProductRestaurant>.
      *
      * @param id
      * @return List<ProductRestaurant>

@@ -26,7 +26,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class RestaurantMessageService {
-
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private Environment environment;
@@ -36,6 +35,14 @@ public class RestaurantMessageService {
     @Autowired
     private RestaurantDAOImpl restaurantDAOImpl;
 
+    /**
+     * Constructor
+     *
+     * @param environment
+     * @param rabbitTemplate
+     * @param directExchange
+     */
+
     @Autowired
     public RestaurantMessageService(Environment environment, RabbitTemplate rabbitTemplate, DirectExchange directExchange) {
         this.environment = environment;
@@ -43,12 +50,17 @@ public class RestaurantMessageService {
         this.directExchange = directExchange;
     }
 
+    /**
+     * Return an RestaurantList
+     *
+     * @param request
+     * @return List<RestaurantInfo>
+     */
+
     @RabbitListener(queues = "FDP.ProductService.MessageDirectory:Request.RestaurantList")
     private FDP.ProductService.MessageDirectory.Response.RestaurantList getRestaurantMessageByCity(RestaurantList request) {
-        logger.debug("Request message: {}", request.getCity());
-        logger.debug("Sending RPC response message with list of Restaurants...");
-
         List<Restaurant> restaurants = restaurantDAOImpl.getRestaurantsByCity(request.getCity());
+
         FDP.ProductService.MessageDirectory.Response.RestaurantList restaurantList = new FDP.ProductService.MessageDirectory.Response.RestaurantList();
 
         List<RestaurantInfo> restaurantInfoList = convertList(restaurants, s -> ConvertFromRestaurant(s));
@@ -56,11 +68,17 @@ public class RestaurantMessageService {
         return restaurantList;
     }
 
+    /**
+     * Return an RestaurantInfo from Restaurant
+     *
+     * @param restaurant
+     * @return RestaurantInfo
+     */
+
     public RestaurantInfo ConvertFromRestaurant(Restaurant restaurant) {
         RestaurantInfo restaurantInfo = new RestaurantInfo();
         Optional<AddressRestaurant> address = restaurant.getAddressRestaurants().stream().findFirst();
-        if(address.isPresent())
-        {
+        if(address.isPresent()) {
             restaurantInfo.setAddress(address.get().getStreet());
             restaurantInfo.setCity(address.get().getCity());
             restaurantInfo.setPhoneNumber(address.get().getPhoneNumber());

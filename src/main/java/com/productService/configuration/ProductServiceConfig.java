@@ -90,7 +90,7 @@ public class ProductServiceConfig {
      */
     @Bean
     public Queue queueProduct() {
-        return new Queue("FDP.ProductService.MessageDirectory:Request.Product");
+        return new Queue("FDP.ProductService.MessageDirectory:Request.ProductInfo");
     }
 
     /**
@@ -104,7 +104,7 @@ public class ProductServiceConfig {
 
     @Bean
     public Binding bindingProduct(DirectExchange exchange, @Qualifier("queueProduct") Queue queue) {
-        return BindingBuilder.bind(queue).to(exchange).with("FDP.ProductService.MessageDirectory:Request.Product");
+        return BindingBuilder.bind(queue).to(exchange).with("FDP.ProductService.MessageDirectory:Request.ProductInfo");
     }
 
     @Bean

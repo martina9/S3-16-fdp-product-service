@@ -9,9 +9,8 @@ import java.util.List;
  */
 
 public interface ProductRestaurantDAO {
-
     /**
-     * Returns an ProductRestaurant implementation this interface.
+     * Return an ProductRestaurant implementation this interface.
      *
      * @param productRestaurantId
      * @return ProductRestaurant
@@ -21,7 +20,7 @@ public interface ProductRestaurantDAO {
     ProductRestaurant getProductRestaurantById(int productRestaurantId);
 
     /**
-     * Returns an addedProductRestaurant implementation this interface.
+     * Return an addedProductRestaurant implementation this interface.
      *
      * @param productRestaurant
      */
@@ -29,7 +28,7 @@ public interface ProductRestaurantDAO {
     int addProductRestaurant(ProductRestaurant productRestaurant);
 
     /**
-     * Returns an updatedProductRestaurant implementation this interface.
+     * Return an updatedProductRestaurant implementation this interface.
      *
      * @param productRestaurant
      */
@@ -37,7 +36,7 @@ public interface ProductRestaurantDAO {
     void updateProductRestaurant(ProductRestaurant productRestaurant);
 
     /**
-     * Returns an deletedProductRestaurant implementation this interface.
+     * Return an deletedProductRestaurant implementation this interface.
      *
      * @param productRestaurantId
      */
@@ -45,7 +44,7 @@ public interface ProductRestaurantDAO {
     void deleteProductRestaurant(int productRestaurantId);
 
     /**
-     * Returns an boolean to check if product restaurant exists implementation this interface.
+     * Return an boolean to check if product restaurant exists implementation this interface.
      *
      * @param productId
      * @param restaurantId
@@ -55,7 +54,7 @@ public interface ProductRestaurantDAO {
     boolean ProductRestaurantExists(int productId, int restaurantId );
 
     /**
-     * Returns an List<ProductRestaurant> from id implementation this interface.
+     * Return an List<ProductRestaurant> from id implementation this interface.
      *
      * @param ids
      * @return List<ProductRestaurant>
@@ -64,7 +63,7 @@ public interface ProductRestaurantDAO {
     List<ProductRestaurant> getProductRestaurantListByIds(List<Integer> ids);
 
     /**
-     * Returns an List<ProductRestaurant> from id implementation this interface.
+     * Return an List<ProductRestaurant> from id implementation this interface.
      *
      * @param idProductRestaurant
      * @return List<ProductRestaurant>
@@ -73,7 +72,7 @@ public interface ProductRestaurantDAO {
     List<ProductRestaurant> getProductListByRestaurantId(int idProductRestaurant);
 
     /**
-     * Returns an List<ProductRestaurant> from id implementation this interface.
+     * Return an List<ProductRestaurant> from id implementation this interface.
      *
      * @param restaurantCode
      * @return List<ProductRestaurant>
@@ -82,7 +81,7 @@ public interface ProductRestaurantDAO {
     List<ProductRestaurant> getProductListByRestaurantCode(String restaurantCode);
 
     /**
-     * Returns an ProductRestaurant from id implementation this interface.
+     * Return an ProductRestaurant from id implementation this interface.
      *
      * @param ids
      * @return ProductRestaurant
