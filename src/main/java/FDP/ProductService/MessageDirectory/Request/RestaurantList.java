@@ -3,30 +3,49 @@ package FDP.ProductService.MessageDirectory.Request;
 import java.io.Serializable;
 
 /**
- * Created by Martina on 01/10/2017.
+ * @author  mGabellini
  */
 
-public class RestaurantList implements Serializable{
+public class RestaurantList implements Serializable {
+    public int id;
+
+    private String city;
+
+    /**
+     * Return an int from getId.
+     *
+     */
+
     public int getId() {
         return id;
     }
 
-    public RestaurantList() {
-    }
+    /**
+     * Return an void from setId.
+     *
+     * @param id
+     */
 
     public void setId(int id) {
         this.id = id;
     }
 
-    public int id;
+    /**
+     * Return an String from getCity.
+     *
+     */
+
     public String getCity() {
         return city;
     }
 
+    /**
+     * Return an void from setCity.
+     *
+     * @param city
+     */
+
     public void setCity(String city) {
         this.city = city;
     }
-
-    private String city;
-
 }

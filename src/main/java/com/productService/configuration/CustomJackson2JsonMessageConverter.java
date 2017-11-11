@@ -13,10 +13,10 @@ import java.util.Map;
 import java.util.UUID;
 
 /**
- * Created by strom on 27/09/2017.
+ * @author  mGabellini
  */
-public class CustomJackson2JsonMessageConverter extends Jackson2JsonMessageConverter {
 
+public class CustomJackson2JsonMessageConverter extends Jackson2JsonMessageConverter {
     public static final String DEFAULT_CHARSET = "UTF-8";
 
     private Object convertBytesToObject(byte[] body, String encoding, JavaType targetJavaType) throws IOException {
@@ -114,7 +114,7 @@ public class CustomJackson2JsonMessageConverter extends Jackson2JsonMessageConve
     protected Message createMessage(Object objectToConvert, MessageProperties messageProperties)
             throws MessageConversionException {
         ObjectMapper mapper = new ObjectMapper();
-         byte[] bytes;
+        byte[] bytes;
         byte[] bytes1;
         String jsonString1;
         try
@@ -124,7 +124,7 @@ public class CustomJackson2JsonMessageConverter extends Jackson2JsonMessageConve
             bytes = jsonString.getBytes(getDefaultCharset());
 
              jsonString1 = mapper.writeValueAsString(UUID.randomUUID().toString()).replace("\"","");
-            bytes1 = jsonString1.getBytes(getDefaultCharset());
+             bytes1 = jsonString1.getBytes(getDefaultCharset());
         }
         catch (IOException e) {
             throw new MessageConversionException(

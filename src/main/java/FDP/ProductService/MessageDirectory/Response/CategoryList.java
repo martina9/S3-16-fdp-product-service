@@ -6,16 +6,27 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created by strom on 01/10/2017.
+ * @author  mGabellini
  */
 
 public class CategoryList implements Serializable{
-
     private List<CategoryInfo> items;
+
+    /**
+     * Return a list of items CategoryInfo.
+     *
+     * @return List<CategoryInfo>
+     */
 
     public List<CategoryInfo> getItems() {
         return items;
     }
+
+    /**
+     * Return a void from setItems.
+     *
+     * @param items
+     */
 
     public void setItems(List<CategoryInfo> items) {
         this.items = items;

@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 /**
- * Created by Martina Gabellini
+ * @author  mGabellini
  */
 
 @Entity

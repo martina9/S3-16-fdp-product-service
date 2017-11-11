@@ -4,16 +4,27 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created by strom on 01/10/2017.
+ * @author  mGabellini
  */
 
-public class ProductList implements Serializable{
-
+public class ProductList implements Serializable {
     private List<ProductInfo> items;
+
+    /**
+     * Return a list of items ProductInfo.
+     *
+     * @return List<ProductInfo>
+     */
 
     public List<ProductInfo> getItems() {
         return items;
     }
+
+    /**
+     * Return a void from setItems.
+     *
+     * @param items
+     */
 
     public void setItems(List<ProductInfo> items) {
         this.items = items;

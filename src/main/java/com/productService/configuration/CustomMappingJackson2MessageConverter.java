@@ -1,16 +1,18 @@
 package com.productService.configuration;
 
 import com.fasterxml.jackson.databind.JavaType;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.converter.MappingJackson2MessageConverter;
 import org.springframework.messaging.converter.MessageConversionException;
 
 import java.io.IOException;
 
+import org.springframework.context.annotation.Configuration;
+
 /**
- * Created by Martina on 27/09/2017.
+ * @author  mGabellini
  */
+
     @Configuration
     public class CustomMappingJackson2MessageConverter extends MappingJackson2MessageConverter {
 

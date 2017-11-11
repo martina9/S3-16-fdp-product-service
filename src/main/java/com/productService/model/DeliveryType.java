@@ -1,7 +1,8 @@
 package com.productService.model;
 
 /**
- * Created by Martina
+ * @author  mGabellini
  */
-    public enum DeliveryType { PICKUP, DELIVERYHOME }
+
+public enum DeliveryType { PICKUP, DELIVERYHOME }
 

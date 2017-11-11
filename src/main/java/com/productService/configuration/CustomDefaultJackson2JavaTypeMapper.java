@@ -5,12 +5,14 @@ import com.fasterxml.jackson.databind.type.TypeFactory;
 import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.support.converter.DefaultJackson2JavaTypeMapper;
 import org.springframework.amqp.support.converter.MessageConversionException;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.util.ClassUtils;
 
+import org.springframework.context.annotation.Configuration;
+
 /**
- * Created by Martina on 27/09/2017.
+ * @author  mGabellini
  */
+
     @Configuration
     public class CustomDefaultJackson2JavaTypeMapper extends DefaultJackson2JavaTypeMapper {
 

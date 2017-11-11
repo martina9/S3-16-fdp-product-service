@@ -1,169 +1,92 @@
 package com.productService.dao;
 
-import com.productService.model.Order;
 import com.productService.model.ProductRestaurant;
-import com.productService.model.User;
 
-import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
-
-import javax.persistence.PersistenceContext;
-
-import javax.persistence.EntityManager;
 import java.util.List;
 
 /**
  * @author  mGabellini
  */
 
-@Transactional
-@Repository
-public class ProductRestaurantDAO implements IProductRestaurantDAO {
-    @PersistenceContext
-    private EntityManager entityManager;
+public interface ProductRestaurantDAO {
 
     /**
-     * Returns an productRestaurant by id using query.
+     * Returns an ProductRestaurant implementation this interface.
      *
      * @param productRestaurantId
      * @return ProductRestaurant
      * @see    ProductRestaurant
      */
 
-    @Override
-    public ProductRestaurant getProductRestaurantById(int productRestaurantId) {
-        return entityManager.find(ProductRestaurant.class, productRestaurantId);
-    }
+    ProductRestaurant getProductRestaurantById(int productRestaurantId);
 
     /**
-     * Returns an added ProductRestaurant.
+     * Returns an addedProductRestaurant implementation this interface.
      *
      * @param productRestaurant
      */
 
-    @Override
-    public int addProductRestaurant(ProductRestaurant productRestaurant) {
-
-        entityManager.persist(productRestaurant);
-        entityManager.flush();
-        return productRestaurant.getId();
-    }
+    int addProductRestaurant(ProductRestaurant productRestaurant);
 
     /**
-     * Returns an updated ProductRestaurant.
+     * Returns an updatedProductRestaurant implementation this interface.
      *
      * @param productRestaurant
      */
 
-    @Override
-    public void updateProductRestaurant(ProductRestaurant productRestaurant) {
-        entityManager.merge(productRestaurant);
-    }
+    void updateProductRestaurant(ProductRestaurant productRestaurant);
 
     /**
-     * Returns an count to check if ProductRestaurant exists.
-     *
-     * @param idProduct
-     * @param idRestaurant
-     * @return boolean to query product from idProduct and idRestaurant
-     * @see    boolean
-     */
-
-    @Override
-    public boolean ProductRestaurantExists(int idProduct, int idRestaurant) {
-        String hql = "Select pr FROM ProductRestaurant as pr join Product p join Restaurant r  WHERE p.id = :idProduct and r.id = :idRestaurant";
-        int count = entityManager.createQuery(hql).setParameter("idProduct", idProduct).setParameter("idRestaurant",idRestaurant).getResultList().size();
-        return count > 0 ? true : false;
-    }
-
-
-    /**
-     * Returns an deleted ProductRestaurant.
+     * Returns an deletedProductRestaurant implementation this interface.
      *
      * @param productRestaurantId
      */
 
-    @Override
-    public void deleteProductRestaurant(int productRestaurantId) {
-        ProductRestaurant productRestaurant = getProductRestaurantById(productRestaurantId);
-        entityManager.remove(productRestaurant);
-    }
+    void deleteProductRestaurant(int productRestaurantId);
 
     /**
-     * Returns an List<ProductRestaurant>.
+     * Returns an boolean to check if product restaurant exists implementation this interface.
      *
-     * @param ids List restaurants
-     * @return List<ProductRestaurant>
-     * @see    List<ProductRestaurant>
-     */
-
-    @Override
-    public List<ProductRestaurant> getProductRestaurantListByIds(List<Integer> ids) {
-        String hql = "Select p FROM ProductRestaurant as p WHERE p.id in (:ids)";
-        List<ProductRestaurant>  restaurants = entityManager.createQuery(hql).setParameter("ids", ids.toArray()).getResultList();
-        return restaurants;
-    }
-
-    /**
-     * Returns an List<ProductRestaurant>.
-     *
+     * @param productId
      * @param restaurantId
-     * @return List<ProductRestaurant>
-     * @see    List<ProductRestaurant>
+     * @return boolean check if productRestaurant existed
      */
 
-    @Override
-    public List<ProductRestaurant> getProductListByRestaurantId(int restaurantId) {
-        String hql = "Select p FROM ProductRestaurant as p join p.restaurant as r join p.product as pr WHERE r.id = :idRestaurant";
-        List<ProductRestaurant>  restaurants = entityManager.createQuery(hql).setParameter("idRestaurant", restaurantId).getResultList();
-        return restaurants;
-    }
+    boolean ProductRestaurantExists(int productId, int restaurantId );
 
     /**
-     * Returns an List<ProductRestaurant>.
+     * Returns an List<ProductRestaurant> from id implementation this interface.
+     *
+     * @param ids
+     * @return List<ProductRestaurant>
+     */
+
+    List<ProductRestaurant> getProductRestaurantListByIds(List<Integer> ids);
+
+    /**
+     * Returns an List<ProductRestaurant> from id implementation this interface.
+     *
+     * @param idProductRestaurant
+     * @return List<ProductRestaurant>
+     */
+
+    List<ProductRestaurant> getProductListByRestaurantId(int idProductRestaurant);
+
+    /**
+     * Returns an List<ProductRestaurant> from id implementation this interface.
      *
      * @param restaurantCode
      * @return List<ProductRestaurant>
-     * @see    List<ProductRestaurant>
      */
 
-    @Override
-    public List<ProductRestaurant> getProductListByRestaurantCode(String restaurantCode) {
-        String hql = "Select p FROM ProductRestaurant as p join p.restaurant as r join p.product as pr WHERE r.code = :restaurantCode";
-        List<ProductRestaurant>  restaurants = entityManager.createQuery(hql).setParameter("restaurantCode", restaurantCode).getResultList();
-        return restaurants;
-    }
+    List<ProductRestaurant> getProductListByRestaurantCode(String restaurantCode);
 
     /**
-     * Returns an List<ProductRestaurant>.
+     * Returns an ProductRestaurant from id implementation this interface.
      *
-     * @param id
-     * @return List<ProductRestaurant>
-     * @see    List<ProductRestaurant>
+     * @param ids
+     * @return ProductRestaurant
      */
 
-    @Override
-    public ProductRestaurant getProductRestaurant(int id) {
-        String hql = "Select p FROM ProductRestaurant as p WHERE p.id = :idProductRestaurant";
-        ProductRestaurant  restaurant =(ProductRestaurant) entityManager.createQuery(hql).setParameter("idProductRestaurant",id).getSingleResult();
-        return restaurant;
-    }
-
-    /**
-     * Returns an User from email.
-     *
-     * @param email
-     * @return User
-     * @see    User
-     */
-
-    public User getUser(String email) {
-        String hql = "select u FROM User as u WHERE u.email = :email";
-        User  user =(User) entityManager.createQuery(hql).setParameter("email",email).getSingleResult();
-        return user;
-    }
-
-    public void saveOrder(Order order) {
-        entityManager.persist(order);
-    }
+    ProductRestaurant  getProductRestaurant(int ids);
 }

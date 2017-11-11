@@ -2,17 +2,17 @@ package com.productService.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import javax.persistence.FetchType;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Created by Martina Gabellini
+ * @author  mGabellini
  */
 
 @Entity

@@ -3,7 +3,7 @@ package com.productService.model;
 import javax.persistence.*;
 
 /**
- * Created by Martina Gabellini
+ * @author  mGabellini
  */
 
 @MappedSuperclass

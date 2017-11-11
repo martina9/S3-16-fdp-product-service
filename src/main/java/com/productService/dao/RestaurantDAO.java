@@ -1,63 +1,26 @@
 package com.productService.dao;
 
 import com.productService.model.Restaurant;
-import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.List;
 
 /**
  * @author  mGabellini
  */
 
-@Transactional
-@Repository
-public class RestaurantDAO implements IRestaurantDAO {
+public interface RestaurantDAO {
 
-    @PersistenceContext
-    private EntityManager entityManager;
+    List<Restaurant> getAllRestaurants();
 
-    @Override
-    public Restaurant getRestaurantById(int restaurantId) {
-        return entityManager.find(Restaurant.class, restaurantId);
-    }
+    Restaurant getRestaurantById(int restaurantId);
 
-    @Override
-    public List<Restaurant> getRestaurantsByCity(String city) {
-        String hql = "Select r FROM Restaurant as r join r.addressRestaurants as adr WHERE :city is null or adr.city = :city";
-        List<Restaurant> restaurant = ( List<Restaurant> ) entityManager.createQuery(hql).setParameter("city", city).getResultList();
-        return restaurant;
-    }
+    void addRestaurant(Restaurant restaurant);
 
-    @Override
-    public List<Restaurant> getAllRestaurants() {
-        String hql = "Select r FROM Restaurant as r ORDER BY r.id";
-        return (List<Restaurant>) entityManager.createQuery(hql).getResultList();
-    }
+    void updateRestaurant(Restaurant restaurant);
 
-    @Override
-    public void addRestaurant(Restaurant restaurant) {
-        entityManager.persist(restaurant);
-    }
+    void deleteRestaurant(int restaurantId);
 
-    @Override
-    public void updateRestaurant(Restaurant restaurant) {
-        Restaurant dbRestaurant = getRestaurantById(restaurant.getId());
-        //dbRestaurant.setCode(restaurant.getCode());
-                entityManager.flush();
-    }
+    boolean RestaurantExists(String code);
 
-    @Override
-    public void deleteRestaurant(int restaurantId) {
-        entityManager.remove(getRestaurantById(restaurantId));
-    }
-
-    @Override
-    public boolean RestaurantExists(String code) {
-        String hql = "FROM Product as p WHERE p.code = :code";
-        int count = entityManager.createQuery(hql).setParameter("code", code).getResultList().size();
-        return count > 0 ? true : false;
-    }
-} 
+    List<Restaurant> getRestaurantsByCity(String city);
+}
