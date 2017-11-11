@@ -5,6 +5,10 @@ import com.productService.model.*;
 import javax.persistence.EntityManager;
 import java.util.List;
 
+import org.aspectj.lang.annotation.Before;
+import org.assertj.core.util.Preconditions;
+import org.hibernate.SessionFactory;
+import org.mockito.Mockito;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.PersistenceContext;
@@ -16,8 +20,17 @@ import javax.persistence.PersistenceContext;
 @Transactional
 @Repository
 public class ProductDAOImpl implements ProductDAO {
+
     @PersistenceContext
-    private EntityManager entityManager;
+    EntityManager entityManager;
+
+    public EntityManager getEntityManager() {
+        return entityManager;
+    }
+
+    public void setEntityManager(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
 
     /**
      * Return an Product by id using query.
@@ -27,8 +40,9 @@ public class ProductDAOImpl implements ProductDAO {
 
     @Override
     public Product getId(int productId) {
+        Preconditions.checkArgument(productId != 0,  "Must be a valid Id");
         String hql = "SELECT p FROM Product p join p.category where p.id = :id";
-        return (Product) entityManager.createQuery(hql).setParameter("id", productId).getSingleResult();
+        return (Product) getEntityManager().createQuery(hql).setParameter("id", productId).getSingleResult();
     }
 
     /**
@@ -41,7 +55,7 @@ public class ProductDAOImpl implements ProductDAO {
     @Override
     public List<Product> getAllProducts() {
         String hql = "SELECT p FROM Product p join p.category  ORDER BY p.id";
-        return (List<Product>) entityManager.createQuery(hql).getResultList();
+        return (List<Product>) getEntityManager().createQuery(hql).getResultList();
     }
 
     /**
@@ -52,8 +66,8 @@ public class ProductDAOImpl implements ProductDAO {
 
     @SuppressWarnings("unchecked")
     public List<Category> getAllCategories() {
-        String hql = "SELECT p FROM Category p  ORDER BY p.id";
-        return (List<Category>) entityManager.createQuery(hql).getResultList();
+        String hql = "SELECT c FROM Category c  ORDER BY c.id";
+        return (List<Category>) getEntityManager().createQuery(hql).getResultList();
     }
 
     /**
@@ -66,7 +80,7 @@ public class ProductDAOImpl implements ProductDAO {
     @SuppressWarnings("unchecked")
     public Category getCategoryById(int id) {
         String hql = "SELECT p FROM Category p where p.id = :id ORDER BY p.id";
-        return (Category) entityManager.createQuery(hql).setParameter("id",id).getSingleResult();
+        return (Category) getEntityManager().createQuery(hql).setParameter("id",id).getSingleResult();
     }
 
     /**
@@ -78,8 +92,9 @@ public class ProductDAOImpl implements ProductDAO {
 
     @Override
     public int addProduct(Product product) {
-        entityManager.persist(product);
-        entityManager.flush();
+        Preconditions.checkArgument(product.getId() != 0, "Must be a new product");
+        getEntityManager().persist(product);
+        getEntityManager().flush();
         return product.getId();
     }
 
@@ -92,7 +107,7 @@ public class ProductDAOImpl implements ProductDAO {
 
     @Override
     public void updateProduct(Product product) {
-        entityManager.merge(product);
+        getEntityManager().merge(product);
     }
 
     /**
@@ -104,7 +119,7 @@ public class ProductDAOImpl implements ProductDAO {
 
     @Override
     public void deleteProduct(int productId) {
-        entityManager.remove(getId(productId));
+        getEntityManager().remove(getId(productId));
     }
 
     /**
@@ -117,7 +132,7 @@ public class ProductDAOImpl implements ProductDAO {
     @Override
     public boolean ProductExists(String code) {
         String hql = "SELECT p FROM Product as p WHERE p.code = :code";
-        int count = entityManager.createQuery(hql).setParameter("code", code).getResultList().size();
+        int count = getEntityManager().createQuery(hql).setParameter("code", code).getResultList().size();
         return count > 0 ? true : false;
     }
 }

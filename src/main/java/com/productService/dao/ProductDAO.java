@@ -3,6 +3,7 @@ package com.productService.dao;
 import com.productService.model.Category;
 import com.productService.model.Product;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 
 /**
@@ -11,11 +12,13 @@ import java.util.List;
 
 public interface ProductDAO {
 
+    EntityManager getEntityManager();
     /**
      * Return an List<Category> implementation this interface.
      *
      * @return List<Category>
      */
+
 
     List<Category> getAllCategories();
 
@@ -29,7 +32,7 @@ public interface ProductDAO {
     Category getCategoryById(int id);
 
     /**
-     * Return an List<Product> implementation this interface.
+     * Returns an List<Product> implementation this interface.
      *
      * @return List<Product>
      */
@@ -37,7 +40,7 @@ public interface ProductDAO {
     List<Product> getAllProducts();
 
     /**
-     * Return an Product implementation this interface.
+     * Returns an Product implementation this interface.
      *
      * @param productId
      * @return Product
@@ -46,7 +49,7 @@ public interface ProductDAO {
     Product getId(int productId);
 
     /**
-     * Return an added Product implementation this interface.
+     * Returns an added Product implementation this interface.
      *
      * @param product
      */
@@ -54,7 +57,7 @@ public interface ProductDAO {
     int addProduct(Product product);
 
     /**
-     * Return an updated Product implementation this interface.
+     * Returns an updated Product implementation this interface.
      *
      * @param product
      */
@@ -62,7 +65,7 @@ public interface ProductDAO {
     void updateProduct(Product product);
 
     /**
-     * Return an deleted Product implementation this interface.
+     * Returns an deleted Product implementation this interface.
      *
      * @param productId
      */
@@ -70,7 +73,7 @@ public interface ProductDAO {
     void deleteProduct(int productId);
 
     /**
-     * Return an boolean to check if product exists implementation this interface.
+     * Returns an boolean to check if product exists implementation this interface.
      *
      * @param code product
      * @return boolean check if product existed

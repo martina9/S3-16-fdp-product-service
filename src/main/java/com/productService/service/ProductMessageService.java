@@ -28,28 +28,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class ProductMessageService {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    private Environment environment;
-
     @Autowired
     private RabbitTemplate rabbitTemplate;
 
-    private DirectExchange directExchange;
-
-    @Autowired
     private ProductDAO productDAO;
 
     /**
      * Constructor
      *
-     * @param environment
-     * @param directExchange
+     * @param productDAO
      */
 
     @Autowired
-    public ProductMessageService(Environment environment, DirectExchange directExchange) {
-        this.environment = environment;
-        this.rabbitTemplate = rabbitTemplate;
-        this.directExchange = directExchange;
+    public ProductMessageService(ProductDAO productDAO) {
+        this.productDAO = productDAO;
     }
 
     /**
