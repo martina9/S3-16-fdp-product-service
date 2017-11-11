@@ -17,6 +17,14 @@ import javax.persistence.PersistenceContext;
 @Repository
 public class RestaurantDAOImpl implements RestaurantDAO {
 
+    public EntityManager getEntityManager() {
+        return entityManager;
+    }
+
+    public void setEntityManager(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
+
     @PersistenceContext
     private EntityManager entityManager;
 

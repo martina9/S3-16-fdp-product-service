@@ -3,6 +3,7 @@ package com.productService.dao;
 import com.productService.model.Category;
 import com.productService.model.Product;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 
 /**
@@ -10,6 +11,8 @@ import java.util.List;
  */
 
 public interface ProductDAO {
+
+    EntityManager getEntityManager();
 
     List<Category> getAllCategories();
 
