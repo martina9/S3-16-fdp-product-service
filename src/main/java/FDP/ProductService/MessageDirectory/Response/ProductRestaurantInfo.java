@@ -42,6 +42,9 @@ public class ProductRestaurantInfo implements Serializable {
         this.productName = productName;
     }
 
+    /**
+     * Default Constructor
+     */
     public ProductRestaurantInfo() {
 
     }

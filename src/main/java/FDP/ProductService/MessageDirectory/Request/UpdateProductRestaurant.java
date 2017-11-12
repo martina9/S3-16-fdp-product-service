@@ -14,7 +14,16 @@ public class UpdateProductRestaurant implements Serializable {
 
     private String name;
 
+
     private double price;
+
+
+    /**
+     * Default Constructor
+     **/
+
+    public UpdateProductRestaurant() {
+    }
 
     /**
      * Constructor
