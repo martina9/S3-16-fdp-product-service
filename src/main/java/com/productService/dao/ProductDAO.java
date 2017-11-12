@@ -62,7 +62,7 @@ public interface ProductDAO {
      * @param product
      */
 
-    void updateProduct(Product product);
+    int updateProduct(Product product);
 
     /**
      * Returns an deleted Product implementation this interface.
@@ -70,7 +70,7 @@ public interface ProductDAO {
      * @param productId
      */
 
-    void deleteProduct(int productId);
+    int deleteProduct(int productId);
 
     /**
      * Returns an boolean to check if product exists implementation this interface.

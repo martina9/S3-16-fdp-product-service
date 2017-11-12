@@ -72,8 +72,9 @@ public class RestaurantDAOImpl implements RestaurantDAO {
      */
 
     @Override
-    public void addRestaurant(Restaurant restaurant) {
+    public int addRestaurant(Restaurant restaurant) {
         entityManager.persist(restaurant);
+        return restaurant.getId();
     }
 
     /**
@@ -84,10 +85,9 @@ public class RestaurantDAOImpl implements RestaurantDAO {
      */
 
     @Override
-    public void updateRestaurant(Restaurant restaurant) {
-        Restaurant dbRestaurant = getRestaurantById(restaurant.getId());
-        //dbRestaurant.setCode(restaurant.getCode());
-                entityManager.flush();
+    public int updateRestaurant(Restaurant restaurant) {
+        getEntityManager().merge(restaurant);
+        return restaurant.getId();
     }
 
     /**
@@ -98,8 +98,9 @@ public class RestaurantDAOImpl implements RestaurantDAO {
      */
 
     @Override
-    public void deleteRestaurant(int restaurantId) {
+    public int deleteRestaurant(int restaurantId) {
         entityManager.remove(getRestaurantById(restaurantId));
+        return restaurantId;
     }
 
     /**

@@ -33,7 +33,7 @@ public interface ProductRestaurantDAO {
      * @param productRestaurant
      */
 
-    void updateProductRestaurant(ProductRestaurant productRestaurant);
+    int updateProductRestaurant(ProductRestaurant productRestaurant);
 
     /**
      * Return an deletedProductRestaurant implementation this interface.
@@ -41,7 +41,7 @@ public interface ProductRestaurantDAO {
      * @param productRestaurantId
      */
 
-    void deleteProductRestaurant(int productRestaurantId);
+    int deleteProductRestaurant(int productRestaurantId);
 
     /**
      * Return an boolean to check if product restaurant exists implementation this interface.

@@ -48,7 +48,6 @@ public class ProductRestaurantDAOImpl implements ProductRestaurantDAO {
 
     @Override
     public int addProductRestaurant(ProductRestaurant productRestaurant) {
-
         entityManager.persist(productRestaurant);
         entityManager.flush();
         return productRestaurant.getId();
@@ -61,8 +60,9 @@ public class ProductRestaurantDAOImpl implements ProductRestaurantDAO {
      */
 
     @Override
-    public void updateProductRestaurant(ProductRestaurant productRestaurant) {
+    public int updateProductRestaurant(ProductRestaurant productRestaurant) {
         entityManager.merge(productRestaurant);
+        return productRestaurant.getId();
     }
 
     /**
@@ -89,9 +89,10 @@ public class ProductRestaurantDAOImpl implements ProductRestaurantDAO {
      */
 
     @Override
-    public void deleteProductRestaurant(int productRestaurantId) {
+    public int deleteProductRestaurant(int productRestaurantId) {
         ProductRestaurant productRestaurant = getProductRestaurantById(productRestaurantId);
         entityManager.remove(productRestaurant);
+        return productRestaurantId;
     }
 
     /**
@@ -153,6 +154,4 @@ public class ProductRestaurantDAOImpl implements ProductRestaurantDAO {
         ProductRestaurant  restaurant =(ProductRestaurant) entityManager.createQuery(hql).setParameter("idProductRestaurant",id).getSingleResult();
         return restaurant;
     }
-
-
 }

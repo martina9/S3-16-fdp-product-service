@@ -33,7 +33,7 @@ public interface RestaurantDAO {
      * @param restaurant
      */
 
-    void addRestaurant(Restaurant restaurant);
+    int addRestaurant(Restaurant restaurant);
 
     /**
      * Return an updated Restaurant implementation this interface.
@@ -41,7 +41,7 @@ public interface RestaurantDAO {
      * @param restaurant
      */
 
-    void updateRestaurant(Restaurant restaurant);
+    int updateRestaurant(Restaurant restaurant);
 
     /**
      * Return an deleted Restaurant implementation this interface.
@@ -49,7 +49,7 @@ public interface RestaurantDAO {
      * @param restaurantId
      */
 
-    void deleteRestaurant(int restaurantId);
+    int deleteRestaurant(int restaurantId);
 
     /**
      * Return an boolean to check if restaurant exists implementation this interface.

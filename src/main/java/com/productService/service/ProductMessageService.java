@@ -52,7 +52,7 @@ public class ProductMessageService {
      */
 
     @RabbitListener(queues = "FDP.ProductService.MessageDirectory:Request.ProductList")
-    private ProductList Products(FDP.ProductService.MessageDirectory.Request.ProductList requestProductList) throws Exception {
+    public ProductList Products(FDP.ProductService.MessageDirectory.Request.ProductList requestProductList) throws Exception {
         ProductList productList = new ProductList();
         List<Product> products =  productDAO.getAllProducts();
         List<ProductInfo> productInfo  = convertList(products, s -> new ProductInfo(s.getId(),s.getName(),s.getCode(),s.getCategory().getId(),s.getCategory().getName()));
@@ -68,7 +68,7 @@ public class ProductMessageService {
      */
 
     @RabbitListener(queues = "FDP.ProductService.MessageDirectory:Request.CategoryList")
-    private CategoryList Categories(FDP.ProductService.MessageDirectory.Request.CategoryList requestCategoryList) throws Exception {
+    public CategoryList Categories(FDP.ProductService.MessageDirectory.Request.CategoryList requestCategoryList) throws Exception {
         CategoryList categoryList = new CategoryList();
         List<Category> categories =  productDAO.getAllCategories();
         List<CategoryInfo> categoryInfoList  = convertList(categories, s -> new CategoryInfo(s.getId(),s.getName()));
@@ -84,7 +84,7 @@ public class ProductMessageService {
      */
 
     @RabbitListener(queues = "FDP.ProductService.MessageDirectory:Request.ProductInfo")
-    private ProductInfo Product(FDP.ProductService.MessageDirectory.Request.ProductInfo info) throws Exception {
+    public ProductInfo ProductInfo(FDP.ProductService.MessageDirectory.Request.ProductInfo info) throws Exception {
         Product product =  productDAO.getId(info.getId());
         ProductInfo productInfo = ConvertFromProduct(product);
         return productInfo;
@@ -98,7 +98,7 @@ public class ProductMessageService {
      */
 
     @RabbitListener(queues = "FDP.ProductService.MessageDirectory:Request.AddProduct")
-    private AddProduct addProduct(FDP.ProductService.MessageDirectory.Request.AddProduct addProduct) throws Exception {
+    public AddProduct addProduct(FDP.ProductService.MessageDirectory.Request.AddProduct addProduct) throws Exception {
         Product productToSave = new Product();
         Category category = productDAO.getCategoryById(addProduct.getCategoryId());
         productToSave.setCategory(category);
@@ -119,7 +119,7 @@ public class ProductMessageService {
      */
 
     @RabbitListener(queues = "FDP.ProductService.MessageDirectory:Request.DeleteProduct")
-    private DeleteProduct Product(FDP.ProductService.MessageDirectory.Request.DeleteProduct deleteProduct) throws Exception {
+    public DeleteProduct Product(FDP.ProductService.MessageDirectory.Request.DeleteProduct deleteProduct) throws Exception {
         productDAO.deleteProduct(deleteProduct.getId());
 
         DeleteProduct response = new DeleteProduct();
@@ -135,7 +135,7 @@ public class ProductMessageService {
      */
 
     @RabbitListener(queues = "FDP.ProductService.MessageDirectory:Request.UpdateProduct")
-    private UpdateProduct Product(FDP.ProductService.MessageDirectory.Request.UpdateProduct updateProduct) throws Exception {
+    public UpdateProduct Product(FDP.ProductService.MessageDirectory.Request.UpdateProduct updateProduct) throws Exception {
         Product productToUpdate = productDAO.getId(updateProduct.getId());
         Category category = productDAO.getCategoryById(updateProduct.getCategoryId());
 

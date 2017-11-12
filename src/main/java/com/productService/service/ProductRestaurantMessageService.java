@@ -71,10 +71,7 @@ public class ProductRestaurantMessageService {
      */
 
     @RabbitListener(queues = "FDP.ProductService.MessageDirectory:Request.ProductRestaurantInfo")
-    private FDP.ProductService.MessageDirectory.Response.ProductRestaurantInfo ProductRestaurantById(FDP.ProductService.MessageDirectory.Request.ProductRestaurantInfo productRestaurantInfo) {
-        logger.debug("Sending RPC response message with id of created order...");
-        logger.debug("Sending RPC response message with id of created order.Int.");
-
+    public FDP.ProductService.MessageDirectory.Response.ProductRestaurantInfo ProductRestaurantById(FDP.ProductService.MessageDirectory.Request.ProductRestaurantInfo productRestaurantInfo) {
         ProductRestaurant productRestaurant =  productRestaurantDAOImpl.getProductRestaurant(productRestaurantInfo.getId());
         ProductRestaurantInfo productInfo = ConvertFromProduct(productRestaurant);
         return productInfo;
@@ -88,9 +85,7 @@ public class ProductRestaurantMessageService {
      */
 
     @RabbitListener(queues = "FDP.ProductService.MessageDirectory:Request.ProductRestaurantList")
-    private FDP.ProductService.MessageDirectory.Response.ProductRestaurantList ProductRestaurantList(FDP.ProductService.MessageDirectory.Request.ProductRestaurantList request) throws Exception {
-        logger.debug("Sending RPC response message with id of created order.Int.");
-
+    public FDP.ProductService.MessageDirectory.Response.ProductRestaurantList ProductRestaurantList(FDP.ProductService.MessageDirectory.Request.ProductRestaurantList request) throws Exception {
         FDP.ProductService.MessageDirectory.Response.ProductRestaurantList productList = new FDP.ProductService.MessageDirectory.Response.ProductRestaurantList();
 
         List<ProductRestaurant> productRestaurants =  productRestaurantDAOImpl.getProductListByRestaurantId(request.getRestaurantId());

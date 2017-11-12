@@ -5,10 +5,7 @@ import com.productService.model.*;
 import javax.persistence.EntityManager;
 import java.util.List;
 
-import org.aspectj.lang.annotation.Before;
 import org.assertj.core.util.Preconditions;
-import org.hibernate.SessionFactory;
-import org.mockito.Mockito;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.PersistenceContext;
@@ -80,7 +77,7 @@ public class ProductDAOImpl implements ProductDAO {
     @SuppressWarnings("unchecked")
     public Category getCategoryById(int id) {
         String hql = "SELECT p FROM Category p where p.id = :id ORDER BY p.id";
-        return (Category) getEntityManager().createQuery(hql).setParameter("id",id).getSingleResult();
+        return (Category) getEntityManager().createQuery(hql).setParameter("id", id).getSingleResult();
     }
 
     /**
@@ -106,8 +103,9 @@ public class ProductDAOImpl implements ProductDAO {
      */
 
     @Override
-    public void updateProduct(Product product) {
+    public int updateProduct(Product product) {
         getEntityManager().merge(product);
+        return product.getId();
     }
 
     /**
@@ -118,8 +116,9 @@ public class ProductDAOImpl implements ProductDAO {
      */
 
     @Override
-    public void deleteProduct(int productId) {
+    public int deleteProduct(int productId) {
         getEntityManager().remove(getId(productId));
+        return productId;
     }
 
     /**
