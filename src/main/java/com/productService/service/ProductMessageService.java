@@ -52,7 +52,7 @@ public class ProductMessageService {
      */
 
     @RabbitListener(queues = "FDP.ProductService.MessageDirectory:Request.ProductList")
-    private ProductList Products(FDP.ProductService.MessageDirectory.Request.ProductList requestProductList) throws Exception {
+    public ProductList Products(FDP.ProductService.MessageDirectory.Request.ProductList requestProductList) throws Exception {
         ProductList productList = new ProductList();
         List<Product> products =  productDAO.getAllProducts();
         List<ProductInfo> productInfo  = convertList(products, s -> new ProductInfo(s.getId(),s.getName(),s.getCode(),s.getCategory().getId(),s.getCategory().getName()));
@@ -84,7 +84,7 @@ public class ProductMessageService {
      */
 
     @RabbitListener(queues = "FDP.ProductService.MessageDirectory:Request.ProductInfo")
-    private ProductInfo Product(FDP.ProductService.MessageDirectory.Request.ProductInfo info) throws Exception {
+    public ProductInfo Product(FDP.ProductService.MessageDirectory.Request.ProductInfo info) throws Exception {
         Product product =  productDAO.getId(info.getId());
         ProductInfo productInfo = ConvertFromProduct(product);
         return productInfo;

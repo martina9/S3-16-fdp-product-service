@@ -92,7 +92,6 @@ public class ProductDAOImpl implements ProductDAO {
 
     @Override
     public int addProduct(Product product) {
-        Preconditions.checkArgument(product.getId() != 0, "Must be a new product");
         getEntityManager().persist(product);
         getEntityManager().flush();
         return product.getId();

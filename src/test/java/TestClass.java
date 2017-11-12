@@ -1,13 +1,14 @@
-import com.productService.dao.ProductDAO;
-import com.productService.dao.ProductDAOImpl;
-import com.productService.dao.ProductRestaurantDAOImpl;
-import com.productService.dao.RestaurantDAOImpl;
+import FDP.ProductService.MessageDirectory.Request.ProductInfo;
+import FDP.ProductService.MessageDirectory.Request.RestaurantInfo;
+import com.productService.dao.*;
 import com.productService.model.Category;
 import com.productService.model.Product;
 import com.productService.model.ProductRestaurant;
 import com.productService.model.Restaurant;
+import com.productService.service.ProductMessageService;
 import com.sun.java.swing.plaf.motif.MotifCheckBoxMenuItemUI;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
@@ -19,6 +20,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
@@ -33,11 +37,17 @@ import static org.mockito.Mockito.when;
     public class TestClass {
 
     @Test
-    public void contextLoads() {
-    }
+    public void contextLoads() {}
 
     @Mock
     private static Query query;
+
+    private List<ProductRestaurant> productRestaurants;
+
+    @Before
+    public void setup(){
+        productRestaurants = new ArrayList<>();
+    }
 
     @Test
     public void register_event_when_the_payment_is_successfully_saved() {
@@ -55,30 +65,6 @@ import static org.mockito.Mockito.when;
         //Assert.assertNotNull(paymentId); // Fails here!
         //Assert.assertEquals(payment.getId(), paymentId);
     }
-//
-//    @Test
-//    public void yourMockTest() {
-//
-//        // create your Mock
-//        ProductDAOImpl paymentRepo = new ProductDAOImpl();
-//        paymentRepo.setEntityManager(Mockito.mock(EntityManager.class));
-//
-//        // instantiate your args
-//        ProductDAOImpl session = new ProductDAOImpl();
-//
-//        // instantate return object
-//        Product returnMe = new Product();
-//        returnMe.setName("Returned");
-//        // mock
-//        when(paymentRepo.getEntityManager().find(any(), any(), any(), any())).thenReturn(returnMe);
-//
-//        // execute
-//        Object returned = session.getEntityManager().find(clazz, id, otherClazz, session);
-//
-//        // assert
-//        assertEquals(returnMe, returned);
-//    }
-//
 
     @Test
     public void get_product_by_id_which_exist() {
@@ -121,7 +107,29 @@ import static org.mockito.Mockito.when;
         Assert.assertSame(dummy, someDao.getProductRestaurant(1));
     }
 
+    @Test
+    public void get_ProductInfo_Request_Message() throws Exception {
+        int idValue = 1;
+        Product product = Mockito.mock(Product.class);
+        ProductInfo infoRequest = Mockito.mock(ProductInfo.class);
+        infoRequest.setId(idValue);
+        EntityManager em = Mockito.mock(EntityManager.class);
+        // Mock the SomeDao to use our EntityManager
+        //Asset
 
+        ProductDAOImpl someDao = new ProductDAOImpl();
+        someDao.setEntityManager(em);
+
+        FDP.ProductService.MessageDirectory.Response.ProductInfo response = new FDP.ProductService.MessageDirectory.Response.ProductInfo();
+        response.setId(idValue);
+
+        ProductMessageService productMessageService = Mockito.mock(ProductMessageService.class);//new ProductMessageService(someDao);
+        Mockito.when(productMessageService.ConvertFromProduct(product)).thenReturn(response);
+        Mockito.when(productMessageService.Product(infoRequest)).thenReturn(response);
+        // Perform the actual test
+        //Assert
+        Assert.assertSame(response, productMessageService.Product(infoRequest));
+    }
     @Test
     public void get_restaurant_by_id_which_exist() {
         // Mock the EntityManager to return our dummy element

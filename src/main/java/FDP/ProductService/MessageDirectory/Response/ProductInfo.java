@@ -32,6 +32,9 @@ public class ProductInfo implements Serializable{
         this.categoryName = categoryName;
     }
 
+    /**
+     * Default Constructor
+     */
 
     public ProductInfo() {
     }

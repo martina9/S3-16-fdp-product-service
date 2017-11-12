@@ -16,6 +16,9 @@ public class AddProductRestaurant implements Serializable {
 
     private double price;
 
+    public AddProductRestaurant() {
+    }
+
     /**
      * Constructor
      *
