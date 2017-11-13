@@ -1,6 +1,7 @@
 package com.productService.model;
 
 import javax.persistence.*;
+
 import java.io.Serializable;
 
 /**

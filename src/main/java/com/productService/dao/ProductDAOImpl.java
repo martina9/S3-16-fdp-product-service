@@ -7,7 +7,9 @@ import java.util.List;
 
 import org.assertj.core.util.Preconditions;
 import org.springframework.stereotype.Repository;
+
 import org.springframework.transaction.annotation.Transactional;
+
 import javax.persistence.PersistenceContext;
 
 /**

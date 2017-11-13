@@ -7,16 +7,15 @@ import com.productService.model.Category;
 import com.productService.model.Product;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.amqp.core.DirectExchange;
 
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.core.env.Environment;
 
 import java.util.List;
 
 import static com.productService.utility.Mapper.convertList;
 
 import org.springframework.stereotype.Component;
+
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -52,7 +51,7 @@ public class ProductMessageService {
      */
 
     @RabbitListener(queues = "FDP.ProductService.MessageDirectory:Request.ProductList")
-    public ProductList Products(FDP.ProductService.MessageDirectory.Request.ProductList requestProductList) throws Exception {
+    public ProductList products(FDP.ProductService.MessageDirectory.Request.ProductList requestProductList) throws Exception {
         ProductList productList = new ProductList();
         List<Product> products =  productDAO.getAllProducts();
         List<ProductInfo> productInfo  = convertList(products, s -> new ProductInfo(s.getId(),s.getName(),s.getCode(),s.getCategory().getId(),s.getCategory().getName()));
@@ -68,7 +67,7 @@ public class ProductMessageService {
      */
 
     @RabbitListener(queues = "FDP.ProductService.MessageDirectory:Request.CategoryList")
-    public CategoryList Categories(FDP.ProductService.MessageDirectory.Request.CategoryList requestCategoryList) throws Exception {
+    public CategoryList categories(FDP.ProductService.MessageDirectory.Request.CategoryList requestCategoryList) throws Exception {
         CategoryList categoryList = new CategoryList();
         List<Category> categories =  productDAO.getAllCategories();
         List<CategoryInfo> categoryInfoList  = convertList(categories, s -> new CategoryInfo(s.getId(),s.getName()));
@@ -84,9 +83,9 @@ public class ProductMessageService {
      */
 
     @RabbitListener(queues = "FDP.ProductService.MessageDirectory:Request.ProductInfo")
-    public ProductInfo ProductInfo(FDP.ProductService.MessageDirectory.Request.ProductInfo info) throws Exception {
+    public ProductInfo productInfo(FDP.ProductService.MessageDirectory.Request.ProductInfo info) throws Exception {
         Product product =  productDAO.getId(info.getId());
-        ProductInfo productInfo = ConvertFromProduct(product);
+        ProductInfo productInfo = convertFromProduct(product);
         return productInfo;
     }
 
@@ -119,7 +118,7 @@ public class ProductMessageService {
      */
 
     @RabbitListener(queues = "FDP.ProductService.MessageDirectory:Request.DeleteProduct")
-    public DeleteProduct Product(FDP.ProductService.MessageDirectory.Request.DeleteProduct deleteProduct) throws Exception {
+    public DeleteProduct deleteProduct(FDP.ProductService.MessageDirectory.Request.DeleteProduct deleteProduct) throws Exception {
         productDAO.deleteProduct(deleteProduct.getId());
 
         DeleteProduct response = new DeleteProduct();
@@ -135,7 +134,7 @@ public class ProductMessageService {
      */
 
     @RabbitListener(queues = "FDP.ProductService.MessageDirectory:Request.UpdateProduct")
-    public UpdateProduct Product(FDP.ProductService.MessageDirectory.Request.UpdateProduct updateProduct) throws Exception {
+    public UpdateProduct updateProduct(FDP.ProductService.MessageDirectory.Request.UpdateProduct updateProduct) throws Exception {
         Product productToUpdate = productDAO.getId(updateProduct.getId());
         Category category = productDAO.getCategoryById(updateProduct.getCategoryId());
 
@@ -156,7 +155,7 @@ public class ProductMessageService {
      * @return ProductInfo
      */
 
-    public ProductInfo ConvertFromProduct(Product product) {
+    public ProductInfo convertFromProduct(Product product) {
         ProductInfo productInfo = new ProductInfo(product.getId(), product.getName(), product.getCode(), product.getCategory().getId(), product.getCategory().getName());
         return productInfo;
     }

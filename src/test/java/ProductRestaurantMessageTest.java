@@ -1,26 +1,17 @@
-import FDP.ProductService.MessageDirectory.Request.ProductInfo;
+import FDP.ProductService.MessageDirectory.Request.AddProductRestaurant;
+import FDP.ProductService.MessageDirectory.Request.DeleteProductRestaurant;
 import FDP.ProductService.MessageDirectory.Request.ProductRestaurantInfo;
-import FDP.ProductService.MessageDirectory.Request.ProductRestaurantList;
-import com.productService.dao.ProductDAOImpl;
-import com.productService.dao.ProductRestaurantDAO;
+import FDP.ProductService.MessageDirectory.Request.UpdateProductRestaurant;
 import com.productService.dao.ProductRestaurantDAOImpl;
-import com.productService.model.Product;
-
 import com.productService.model.ProductRestaurant;
-import com.productService.model.Restaurant;
-import com.productService.service.ProductMessageService;
 import com.productService.service.ProductRestaurantMessageService;
 import org.junit.Assert;
-
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import javax.persistence.EntityManager;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
-import java.util.List;
 
 /**
  * @author  mGabellini
@@ -30,16 +21,12 @@ import java.util.List;
 public class ProductRestaurantMessageTest {
     @Test
     public void get_product_restaurant_info_request_message() throws Exception {
+
+        //Arrange
         int idValue = 1;
-
         ProductRestaurant productRestaurant = Mockito.mock(ProductRestaurant.class);
-        ProductRestaurantInfo infoRequest = Mockito.mock(ProductRestaurantInfo.class);
-        infoRequest.setId(idValue);
+        FDP.ProductService.MessageDirectory.Request.ProductRestaurantInfo infoRequest = Mockito.mock(ProductRestaurantInfo.class);
         EntityManager em = Mockito.mock(EntityManager.class);
-
-        // Mock the SomeDao to use our EntityManager
-        //Asset
-
         ProductRestaurantDAOImpl someDao = new ProductRestaurantDAOImpl();
         someDao.setEntityManager(em);
 
@@ -47,50 +34,71 @@ public class ProductRestaurantMessageTest {
         response.setId(idValue);
 
         ProductRestaurantMessageService productRestaurantMessageService = Mockito.mock(ProductRestaurantMessageService.class);
-        Mockito.when(productRestaurantMessageService.ConvertFromProduct(productRestaurant)).thenReturn(response);
-        Mockito.when(productRestaurantMessageService.ProductRestaurantById(infoRequest)).thenReturn(response);
+        Mockito.when(productRestaurantMessageService.convertFromProduct(productRestaurant)).thenReturn(response);
+        Mockito.when(productRestaurantMessageService.productRestaurantById(infoRequest)).thenReturn(response);
 
-        // Perform the actual test
+        //Act
+        FDP.ProductService.MessageDirectory.Response.ProductRestaurantInfo expectedResponse = productRestaurantMessageService.productRestaurantById(infoRequest);
+
         //Assert
-        Assert.assertSame(response, productRestaurantMessageService.ProductRestaurantById(infoRequest));
+        Assert.assertSame(response.getId(), expectedResponse.getId());
     }
 
+
     @Test
-    public void get_product_restaurant_list_info_request_message() throws Exception {
-        int idValue = 1;
+    public void add_product_restaurant_request_message() throws Exception {
 
-        // Mock the SomeDao to use our EntityManager
-        //Asset
-
-        ProductRestaurant productRestaurant = Mockito.mock(ProductRestaurant.class);
-        ProductRestaurantList productRestaurantListRequest = Mockito.mock(ProductRestaurantList.class);
-
+        //Arrange
+        AddProductRestaurant requestAddProductRestaurant = Mockito.mock(AddProductRestaurant.class);
         EntityManager em = Mockito.mock(EntityManager.class);
         ProductRestaurantDAOImpl someDao = new ProductRestaurantDAOImpl();
         someDao.setEntityManager(em);
 
-        FDP.ProductService.MessageDirectory.Response.ProductRestaurantList response = new FDP.ProductService.MessageDirectory.Response.ProductRestaurantList();
-
-        List<ProductRestaurant> productRestaurants =  someDao.getProductListByRestaurantId(idValue);
-
+        FDP.ProductService.MessageDirectory.Response.AddProductRestaurant expectedResponse = new FDP.ProductService.MessageDirectory.Response.AddProductRestaurant();
         ProductRestaurantMessageService productRestaurantMessageService = Mockito.mock(ProductRestaurantMessageService.class);
-        //Mockito.when(productRestaurantMessageService.ConvertFromProduct(productRestaurant)).thenReturn(response);
-        Mockito.when(productRestaurantMessageService.ProductRestaurantList(productRestaurantListRequest)).thenReturn(response);
+        Mockito.when(productRestaurantMessageService.addProductRestaurant(requestAddProductRestaurant)).thenReturn(expectedResponse);
 
-        // Perform the actual test
+        //Act
+        FDP.ProductService.MessageDirectory.Response.AddProductRestaurant response = productRestaurantMessageService.addProductRestaurant(requestAddProductRestaurant);
+
         //Assert
-        Assert.assertSame(response, productRestaurantMessageService.ProductRestaurantList(productRestaurantListRequest));
+        Assert.assertSame(expectedResponse, response);
     }
 
     @Test
-    public void add_product_restaurant_request_message() throws Exception {
-        // Mock the SomeDao to use our EntityManager
-        //Asset
+    public void update_product_restaurant_request_message() throws Exception {
+        //Arrange
+        UpdateProductRestaurant requestUpdateProductRestaurant = Mockito.mock(UpdateProductRestaurant.class);
+        EntityManager em = Mockito.mock(EntityManager.class);
+        ProductRestaurantDAOImpl someDao = new ProductRestaurantDAOImpl();
+        someDao.setEntityManager(em);
 
-        ProductRestaurant productRestaurant = Mockito.mock(ProductRestaurant.class);
-        Product product = Mockito.mock(Product.class);
-        Restaurant restaurant = Mockito.mock(Restaurant.class);
+        FDP.ProductService.MessageDirectory.Response.UpdateProductRestaurant expectedResponse = new FDP.ProductService.MessageDirectory.Response.UpdateProductRestaurant();
+        ProductRestaurantMessageService productRestaurantMessageService = Mockito.mock(ProductRestaurantMessageService.class);
+        Mockito.when(productRestaurantMessageService.updateProductRestaurant(requestUpdateProductRestaurant)).thenReturn(expectedResponse);
 
+        //Act
+        FDP.ProductService.MessageDirectory.Response.UpdateProductRestaurant response = productRestaurantMessageService.updateProductRestaurant(requestUpdateProductRestaurant);
 
+        //Assert
+        Assert.assertSame(expectedResponse, response);
+    }
+
+    @Test
+    public void delete_product_restaurant_request_message() throws Exception {
+        //Arrange
+        DeleteProductRestaurant requestDeleteProduct = Mockito.mock(DeleteProductRestaurant.class);
+        EntityManager em = Mockito.mock(EntityManager.class);
+        ProductRestaurantDAOImpl someDao = new ProductRestaurantDAOImpl();
+        someDao.setEntityManager(em);
+        FDP.ProductService.MessageDirectory.Response.DeleteProductRestaurant response = new FDP.ProductService.MessageDirectory.Response.DeleteProductRestaurant();
+        ProductRestaurantMessageService productRestaurantMessageService = Mockito.mock(ProductRestaurantMessageService.class);
+        Mockito.when(productRestaurantMessageService.deleteProductRestaurant(requestDeleteProduct)).thenReturn(response);
+
+        //Act
+        FDP.ProductService.MessageDirectory.Response.DeleteProductRestaurant expectedResponse = productRestaurantMessageService.deleteProductRestaurant(requestDeleteProduct);
+
+        //Assert
+        Assert.assertSame(expectedResponse, response);
     }
 }

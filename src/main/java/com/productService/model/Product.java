@@ -16,9 +16,14 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
     public class Product extends BaseEntity implements Serializable {
         private static final long serialVersionUID = 1L;
 
-        public Product(){}
+        private Category category;
 
         private Set<ProductRestaurant> productRestaurants = new HashSet<>();
+
+        private Set<Ingredient> ingredients;
+
+        public Product(){}
+
 
         @JsonIgnore
         @OneToMany(mappedBy = "restaurant", fetch = FetchType.EAGER)
@@ -34,8 +39,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
             this.productRestaurants.add(productRestaurant);
         }
 
-        private Category category;
-
         @ManyToOne
         @JoinColumn(name = "category_id")
         public Category getCategory() {
@@ -46,7 +49,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
             this.category = category;
         }
 
-        private Set<Ingredient> ingredients;
+
 
         @ManyToMany(cascade=CascadeType.MERGE, fetch = FetchType.EAGER)
         @JoinTable(name="product_ingredient", joinColumns=@JoinColumn(name="product_id"), inverseJoinColumns=@JoinColumn(name="ingredient_id"))

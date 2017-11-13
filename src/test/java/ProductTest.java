@@ -2,20 +2,18 @@ import com.productService.dao.ProductDAOImpl;
 import com.productService.model.Category;
 import com.productService.model.Product;
 import org.junit.Assert;
-
-import org.mockito.Mockito;
-import org.mockito.runners.MockitoJUnitRunner;
-import static org.mockito.Matchers.anyString;
-
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.runners.MockitoJUnitRunner;
+
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.mockito.Matchers.anyString;
 
 /**
  * @author  mGabellini

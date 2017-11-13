@@ -1,6 +1,7 @@
 package com.productService.model;
 
 import javax.persistence.*;
+
 import java.io.Serializable;
 
 /**
@@ -18,6 +19,10 @@ public class ProductRestaurant  implements Serializable {
     private String name;
 
     private double price;
+
+    private Restaurant restaurant;
+
+    private Product product;
 
     public int getQuantity() {
         return quantity;
@@ -46,9 +51,6 @@ public class ProductRestaurant  implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
-
-    private Restaurant restaurant;
-    private Product product;
 
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinColumn(name = "RESTAURANT_ID",nullable = false)
@@ -79,6 +81,4 @@ public class ProductRestaurant  implements Serializable {
     public void setPrice(double price) {
         this.price = price;
     }
-
 }
-

@@ -18,6 +18,7 @@ import static com.productService.utility.Mapper.convertList;
 
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Component;
 
 /**
@@ -58,12 +59,12 @@ public class RestaurantMessageService {
      */
 
     @RabbitListener(queues = "FDP.ProductService.MessageDirectory:Request.RestaurantList")
-    private FDP.ProductService.MessageDirectory.Response.RestaurantList getRestaurantMessageByCity(RestaurantList request) {
+    public FDP.ProductService.MessageDirectory.Response.RestaurantList getRestaurantMessageByCity(RestaurantList request) {
         List<Restaurant> restaurants = restaurantDAOImpl.getRestaurantsByCity(request.getCity());
 
         FDP.ProductService.MessageDirectory.Response.RestaurantList restaurantList = new FDP.ProductService.MessageDirectory.Response.RestaurantList();
 
-        List<RestaurantInfo> restaurantInfoList = convertList(restaurants, s -> ConvertFromRestaurant(s));
+        List<RestaurantInfo> restaurantInfoList = convertList(restaurants, s -> convertFromRestaurant(s));
         restaurantList.setItems(restaurantInfoList);
         return restaurantList;
     }
@@ -75,7 +76,7 @@ public class RestaurantMessageService {
      * @return RestaurantInfo
      */
 
-    public RestaurantInfo ConvertFromRestaurant(Restaurant restaurant) {
+    public RestaurantInfo convertFromRestaurant(Restaurant restaurant) {
         RestaurantInfo restaurantInfo = new RestaurantInfo();
         Optional<AddressRestaurant> address = restaurant.getAddressRestaurants().stream().findFirst();
         if(address.isPresent()) {

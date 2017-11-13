@@ -28,6 +28,7 @@ import static com.productService.utility.Mapper.convertList;
 
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Component;
 
 /**
@@ -71,9 +72,9 @@ public class ProductRestaurantMessageService {
      */
 
     @RabbitListener(queues = "FDP.ProductService.MessageDirectory:Request.ProductRestaurantInfo")
-    public FDP.ProductService.MessageDirectory.Response.ProductRestaurantInfo ProductRestaurantById(FDP.ProductService.MessageDirectory.Request.ProductRestaurantInfo productRestaurantInfo) {
+    public FDP.ProductService.MessageDirectory.Response.ProductRestaurantInfo productRestaurantById(FDP.ProductService.MessageDirectory.Request.ProductRestaurantInfo productRestaurantInfo) {
         ProductRestaurant productRestaurant =  productRestaurantDAOImpl.getProductRestaurant(productRestaurantInfo.getId());
-        ProductRestaurantInfo productInfo = ConvertFromProduct(productRestaurant);
+        ProductRestaurantInfo productInfo = convertFromProduct(productRestaurant);
         return productInfo;
     }
 
@@ -85,7 +86,7 @@ public class ProductRestaurantMessageService {
      */
 
     @RabbitListener(queues = "FDP.ProductService.MessageDirectory:Request.ProductRestaurantList")
-    public FDP.ProductService.MessageDirectory.Response.ProductRestaurantList ProductRestaurantList(FDP.ProductService.MessageDirectory.Request.ProductRestaurantList request) throws Exception {
+    public FDP.ProductService.MessageDirectory.Response.ProductRestaurantList productRestaurantList(FDP.ProductService.MessageDirectory.Request.ProductRestaurantList request) throws Exception {
         FDP.ProductService.MessageDirectory.Response.ProductRestaurantList productList = new FDP.ProductService.MessageDirectory.Response.ProductRestaurantList();
 
         List<ProductRestaurant> productRestaurants =  productRestaurantDAOImpl.getProductListByRestaurantId(request.getRestaurantId());
@@ -103,7 +104,7 @@ public class ProductRestaurantMessageService {
      */
 
     @RabbitListener(queues = "FDP.ProductService.MessageDirectory:Request.AddProductRestaurant")
-    private AddProductRestaurant AddProductRestaurant(FDP.ProductService.MessageDirectory.Request.AddProductRestaurant request) throws Exception {
+    public AddProductRestaurant addProductRestaurant(FDP.ProductService.MessageDirectory.Request.AddProductRestaurant request) throws Exception {
         ProductRestaurant productToSave = new ProductRestaurant();
 
         Product product = productDAOImpl.getId(request.getProductId());
@@ -130,7 +131,7 @@ public class ProductRestaurantMessageService {
      */
 
     @RabbitListener(queues = "FDP.ProductService.MessageDirectory:Request.UpdateProductRestaurant")
-    private UpdateProductRestaurant UpdateProductRestaurant(FDP.ProductService.MessageDirectory.Request.UpdateProductRestaurant request) {
+    public UpdateProductRestaurant updateProductRestaurant(FDP.ProductService.MessageDirectory.Request.UpdateProductRestaurant request) {
         ProductRestaurant productToUpdate = productRestaurantDAOImpl.getProductRestaurant(request.getId());
         Product product = productDAOImpl.getId(request.getProductId());
         Restaurant restaurant = restaurantDAOImpl.getRestaurantById(request.getRestaurantId());
@@ -155,7 +156,7 @@ public class ProductRestaurantMessageService {
      */
 
     @RabbitListener(queues = "FDP.ProductService.MessageDirectory:Request.DeleteProductRestaurant")
-    private DeleteProductRestaurant DeleteProductRestaurant(FDP.ProductService.MessageDirectory.Request.DeleteProductRestaurant request) {
+    public DeleteProductRestaurant deleteProductRestaurant(FDP.ProductService.MessageDirectory.Request.DeleteProductRestaurant request) {
         productRestaurantDAOImpl.deleteProductRestaurant(request.getId());
 
         DeleteProductRestaurant response = new DeleteProductRestaurant();
@@ -170,7 +171,7 @@ public class ProductRestaurantMessageService {
      * @return ProductRestaurantInfo
      */
 
-    public ProductRestaurantInfo ConvertFromProduct(ProductRestaurant product) {
+    public ProductRestaurantInfo convertFromProduct(ProductRestaurant product) {
         ProductRestaurantInfo productRestaurantInfo = new ProductRestaurantInfo();
         productRestaurantInfo.setProductId(product.getProduct().getId());
         productRestaurantInfo.setRestaurantId(product.getRestaurant().getId());
