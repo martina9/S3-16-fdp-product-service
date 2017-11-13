@@ -4,6 +4,8 @@
     <bytecodeTargetLevel>
       <module name="S3-16-fdp-delivery-service_main" target="1.8" />
       <module name="S3-16-fdp-delivery-service_test" target="1.8" />
+      <module name="S3-16-fdp-product-service_main" target="1.8" />
+      <module name="S3-16-fdp-product-service_test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
