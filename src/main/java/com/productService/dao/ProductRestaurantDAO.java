@@ -51,7 +51,7 @@ public interface ProductRestaurantDAO {
      * @return boolean check if productRestaurant existed
      */
 
-    boolean ProductRestaurantExists(int productId, int restaurantId );
+    boolean productRestaurantExists(int productId, int restaurantId );
 
     /**
      * Return an List<ProductRestaurant> from id implementation this interface.

@@ -75,7 +75,7 @@ public class ProductRestaurantDAOImpl implements ProductRestaurantDAO {
      */
 
     @Override
-    public boolean ProductRestaurantExists(int idProduct, int idRestaurant) {
+    public boolean productRestaurantExists(int idProduct, int idRestaurant) {
         String hql = "Select pr FROM ProductRestaurant as pr join Product p join Restaurant r  WHERE p.id = :idProduct and r.id = :idRestaurant";
         int count = entityManager.createQuery(hql).setParameter("idProduct", idProduct).setParameter("idRestaurant",idRestaurant).getResultList().size();
         return count > 0 ? true : false;

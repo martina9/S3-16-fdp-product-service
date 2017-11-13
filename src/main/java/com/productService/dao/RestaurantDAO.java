@@ -58,7 +58,7 @@ public interface RestaurantDAO {
      * @return boolean check if product existed
      */
 
-    boolean RestaurantExists(String code);
+    boolean restaurantExists(String code);
 
     /**
      * Return an List<Restaurant> by city implementation this interface.

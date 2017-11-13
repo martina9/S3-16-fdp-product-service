@@ -111,7 +111,7 @@ public class RestaurantDAOImpl implements RestaurantDAO {
      */
 
     @Override
-    public boolean RestaurantExists(String code) {
+    public boolean restaurantExists(String code) {
         String hql = "FROM Product as p WHERE p.code = :code";
         int count = entityManager.createQuery(hql).setParameter("code", code).getResultList().size();
         return count > 0 ? true : false;
